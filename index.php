@@ -1,7 +1,7 @@
 <?php 
 
 /*
- *	Knoxious Open Pastebin		 v 1.1.7
+ *	Knoxious Open Pastebin		 v 1.5.0
  * ============================================================================
  *	
  *	Copyright (c) 2009-2010 Xan Manning (http://xan-manning.co.uk/)
@@ -27,6 +27,15 @@ require("config.php");
 /* Start Pastebin */
 if(substr(phpversion(), 0, 3) < 5.2)
 	die('PHP 5.2 is required to run this pastebin! This version is ' . phpversion() . '. Please contact your host!');
+
+if($CONFIG['pb_encrypt_pastes'] == TRUE && !function_exists('mcrypt_encrypt'))
+	$CONFIG['pb_encrypt_pastes'] = FALSE;
+
+if(@$_POST['encryption'])
+	$_POST['encryption'] = md5(preg_replace("/[^a-zA-Z0-9\s]/", "i0", $_POST['encryption']));
+
+if(@$_POST['decrypt_phrase'])
+	$_POST['decrypt_phrase'] = md5(preg_replace("/[^a-zA-Z0-9\s]/", "i0", $_POST['decrypt_phrase']));
 
 if($CONFIG['pb_gzip'])
 	ob_start("ob_gzhandler");
@@ -466,6 +475,7 @@ class db
 						'Datetime'	=>	time() + $data['Time_offset'],
 						'Author'	=>	$data['Author'],
 						'Protection'	=>	$data['Protect'],
+						'Encrypted'	=>	$data['Encrypted'],
 						'Syntax' 	=>	$data['Syntax'],
 						'Parent'	=>	$data['Parent'],
 						'Image'		=>	$data['Image'],
@@ -488,7 +498,7 @@ class db
 					{
 						case "mysql":
 							$this->connect();
-							$query = "INSERT INTO " . $this->config['mysql_connection_config']['db_table'] . " (ID, Subdomain, Datetime, Author, Protection, Syntax, Parent, Image, ImageTxt, URL, Video, Lifespan, IP, Data, GeSHI, Style) VALUES ('" . $paste['ID'] . "', '" . $paste['Subdomain'] . "', '" . $paste['Datetime'] . "', '" . $paste['Author'] . "', " . (int)$paste['Protection'] . ", '" . $paste['Syntax'] . "', '" . $paste['Parent'] . "', '" . $paste['Image'] . "', '" . $paste['ImageTxt'] . "', '" . $paste['URL'] . "', '" . $paste['Video'] . "', '" . (int)$paste['Lifespan'] . "', '" . $paste['IP'] . "', '" . $paste['Data'] . "', '" . $paste['GeSHI'] . "', '" . $paste['Style'] . "')";
+							$query = "INSERT INTO " . $this->config['mysql_connection_config']['db_table'] . " (ID, Subdomain, Datetime, Author, Protection, Encrypted, Syntax, Parent, Image, ImageTxt, URL, Video, Lifespan, IP, Data, GeSHI, Style) VALUES ('" . $paste['ID'] . "', '" . $paste['Subdomain'] . "', '" . $paste['Datetime'] . "', '" . $paste['Author'] . "', " . (int)$paste['Protection'] . ", '" . $paste['Encrypted'] . "', '" . $paste['Syntax'] . "', '" . $paste['Parent'] . "', '" . $paste['Image'] . "', '" . $paste['ImageTxt'] . "', '" . $paste['URL'] . "', '" . $paste['Video'] . "', '" . (int)$paste['Lifespan'] . "', '" . $paste['IP'] . "', '" . $paste['Data'] . "', '" . $paste['GeSHI'] . "', '" . $paste['Style'] . "')";
 							$result = mysql_query($query);
 						break;
 						case "txt":
@@ -1199,12 +1209,11 @@ class bin
 				if($salts)
 					{
 						$hashedSalt = array(NULL, NULL);
-						$longIP = ip2long($_SERVER['REMOTE_ADDR']);
-
+						
 						for($i = 0; $i < strlen(max($salts)) ; $i++)
 							{
-								$hashedSalt[0] .= $salts[1][$i] . $salts[3][$i] . ($longIP * $i);
-								$hashedSalt[1] .= $salts[2][$i] . $salts[4][$i] . ($longIP + $i);
+								$hashedSalt[0] .= $salts[1][$i] . $salts[3][$i];
+								$hashedSalt[1] .= $salts[2][$i] . $salts[4][$i];
 							}
 
 						$hashedSalt[0] = hash($this->db->config['pb_algo'], $hashedSalt[0]);
@@ -1218,6 +1227,31 @@ class bin
 
 				return $output;
 
+			}
+
+		public function encrypt($string, $key)
+			{
+				$mc_iv = mcrypt_create_iv(32, MCRYPT_RAND);
+
+				$key = md5($this->hasher($key, $this->db->config['pb_salts']));
+				return base64_encode(trim(mcrypt_encrypt(MCRYPT_RIJNDAEL_256, $key, base64_encode($string), MCRYPT_MODE_ECB, $mc_iv)));		
+			}
+
+		public function decrypt($cryptstring, $key)
+			{
+				$mc_iv = mcrypt_create_iv(32, MCRYPT_RAND);
+				$cryptstring = base64_decode($cryptstring);
+
+				$key = md5($this->hasher($key, $this->db->config['pb_salts']));
+				return base64_decode(trim(mcrypt_decrypt(MCRYPT_RIJNDAEL_256, $key, $cryptstring, MCRYPT_MODE_ECB, $mc_iv)));	
+			}
+
+		public function testDecrypt($checkstring, $key)
+			{
+				if($this->db->config['pb_encryption_checkphrase'] == $this->decrypt($checkstring, $key))
+					return TRUE;
+				else 
+					return FALSE;
 			}
 
 		public function event($time, $single = FALSE)
@@ -1462,7 +1496,7 @@ if(file_exists('./INSTALL_LOCK') && @$_POST['subdomain'] && $CONFIG['pb_subdomai
 		if($seed)
 			header("Location: " . str_replace("http://", "http://" . $seed . ".", $bin->linker()));
 		else
-			$error_subdomain = TRUE;	
+			$error_subdomain = TRUE;
 	}
 
 $CONFIG['subdomain'] = $bin->setSubdomain();
@@ -1518,6 +1552,11 @@ if($requri == "defaults")
 			$defaults['api'] = '"' . $bin->linker('api') . '"';
 		else
 			$defaults['api'] = 0;
+
+		if($CONFIG['pb_encrypt_pastes'])
+			$defaults['passwords'] = 1;
+		else
+			$defaults['passwords'] = 0;
 
 		if($bin->adaptor() && $CONFIG['pb_api'])
 			$defaults['api_adaptor'] = '"' . $bin->linker() . $CONFIG['pb_api_adaptor'] . '"';
@@ -1614,6 +1653,7 @@ if($requri == "defaults")
 					"text": 		1,
 					"max_paste_size":	' . $defaults['max_paste_size'] . ',
 					"editing": 		' . $defaults['editing'] . ',
+					"passwords":		' . $defaults['passwords'] . ',
 					"api":			' . $defaults['api'] . ',
 					"api_adaptor":		' . $defaults['api_adaptor'] . ',
 					"clipboard":		' . $defaults['clipboard'] . ',
@@ -1658,6 +1698,15 @@ if($requri == "api")
 					$result = array('error' => '"E01c"', 'message' => "Spam protection activated.");
 
 				$pasteID = $bin->generateID();
+				$imageID = $pasteID;
+
+				if($CONFIG['pb_encrypt_pastes'] && @$_POST['encryption'])
+					{
+						$encryption = $bin->encrypt($CONFIG['pb_encryption_checkphrase'], $_POST['encryption']);
+						$imageID = md5($imageID . $bin->generateID()) . "_";
+					}
+				else
+					$encryption = FALSE;
 
 				if(@$_POST['urlField'])
 					$postedURL = $_POST['urlField'];
@@ -1691,7 +1740,7 @@ if($requri == "api")
 				$uploadAttempt = FALSE;
 
 				if(strlen(@$_FILES['pasteImage']['name']) > 4 && $CONFIG['pb_images']) {
-					$imageUpload = $db->uploadFile($_FILES['pasteImage'], $pasteID);
+					$imageUpload = $db->uploadFile($_FILES['pasteImage'], $imageID);
 					if($imageUpload != FALSE) {
 						$postedURL = NULL;
 					}
@@ -1699,7 +1748,7 @@ if($requri == "api")
 				}
 		
 				if(in_array(strtolower($postedURLInfo['extension']), $CONFIG['pb_image_extensions']) && $CONFIG['pb_images'] && $CONFIG['pb_download_images'] && !$imageUpload) {
-					$imageUpload = $db->downTheImg($postedURL, $pasteID);
+					$imageUpload = $db->downTheImg($postedURL, $imageID);
 					if($imageUpload != FALSE) {
 						$postedURL = NULL;
 						$exclam = NULL;
@@ -1713,7 +1762,7 @@ if($requri == "api")
 						$_POST['pasteEnter'] = $imgHost;
 
 						if(in_array(strtolower($imgHostInfo['extension']), $CONFIG['pb_image_extensions']) && $CONFIG['pb_images'] && $CONFIG['pb_download_images']) {
-							$imageUpload = $db->downTheImg($imgHost, $pasteID);
+							$imageUpload = $db->downTheImg($imgHost, $imageID);
 							if($imageUpload != FALSE) {
 								$postedURL = NULL;
 								$exclam = NULL;
@@ -1761,6 +1810,7 @@ if($requri == "api")
 					'Video' => $videoSRC,
 					'Lifespan' => $_POST['lifespan'],
 					'Protect' => $_POST['privacy'],
+					'Encrypted' => $encryption,
 					'Syntax' => $_POST['highlighter'],
 					'Parent' => $requri,
 					'Content' => @$_POST['pasteEnter'],
@@ -1768,6 +1818,15 @@ if($requri == "api")
 					'Style' => $geshiStyle
 				);
 
+				if($encryption)
+					{
+						$paste['Content'] = $bin->encrypt($paste['Content'], $_POST['encryption']);
+						if(strlen($paste['GeSHI']) > 1)
+							$paste['GeSHI'] = $bin->encrypt($paste['GeSHI'], $_POST['encryption']);
+						if(strlen($paste['Image']) > 1)
+							$paste['Image'] = $bin->encrypt($paste['Image'], $_POST['encryption']);
+					}
+		
 				if(@$_POST['pasteEnter'] == @$_POST['originalPaste'] && strlen($_POST['pasteEnter']) > 10)
 					{
 						$result = array('ID' => 0, 'error' => '"E01c"', 'message' => "Please don't just repost what has already been said!");
@@ -1835,6 +1894,35 @@ if($requri == "api")
 
 						if($db->dbt == "mysql")
 							$pasted = $pasted[0];
+						
+						if($pasted['Encrypted'] != NULL && !@$_POST['decrypt_phrase'])
+							{
+								$JSON = '
+									{
+										"id":			0,
+										"url":			"' . $bin->linker($reqhash) . '",
+										"author":		0,
+										"datetime": 		0,
+										"protection":		0,
+										"syntax": 		0,
+										"parent":		0,
+										"image":		0,
+										"image_text":		0,
+										"link":			0,
+										"video":		0,
+										"lifespan":		0,
+										"data":			"Encrypted pastes cannot be sent over API!",
+										"data_html":		"' . $db->dirtyHTML("<!-- Encrypted pastes cannot be sent over API!  -->") . '",
+										"geshi":		0,
+										"style":		0
+					
+									';
+	
+								print_r($JSON);
+								die('	}');
+							}
+						else
+							$pasted['Encrypted'] = NULL;
 
 						if(strlen($pasted['Image']) > 3)
 							$pasted['Image_path'] = $bin->linker() . $db->setDataPath($pasted['Image']);
@@ -1967,8 +2055,12 @@ if($requri != "install")
 				div#pastebin { width: 82%; float: left; position: relative; padding-left: 1%; border-left: 1px dotted #CCCCCC; }
 				#pasteEnter { width: 100%; height: 250px; border: 1px solid #CCCCCC; background-color: #FFFFFF; }
 				#authorEnter { background-color: #FFFFFF; border-top: 1px solid #CCCCCC; border-bottom: 1px solid #CCCCCC; border-left: none; border-right: none; width: 68%;  }
+				#encryption { background-color: #FFFFFF; border-top: 1px solid #CCCCCC; border-bottom: 1px solid #CCCCCC; border-left: none; border-right: none; width: 33%;  }
+				#decrypt_phrase { background-color: #FFFFFF; border-top: 1px solid #CCCCCC; border-bottom: 1px solid #CCCCCC; border-left: none; border-right: none; width: 33%;  }
 				#subdomain { background-color: #FFFFFF; border-top: 1px solid #CCCCCC; border-bottom: 1px solid #CCCCCC; border-left: none; border-right: none; }
 				#subdomain_form { margin-top: 5px; }
+				#passForm { padding: 50px; padding-left: 40%; border: 1px solid #CCCCCC; }
+				#passForm > label { display: block; }
 				#adminPass { background-color: #FFFFFF; border-top: 1px solid #CCCCCC; border-bottom: 1px solid #CCCCCC; border-left: none; border-right: none; width: 100%;  }
 				#copyrightInfo { color: #999999; font-size: xx-small; position: fixed; bottom: 0px; right: 10px; padding-bottom: 10px; text-align: left; }
 				ul#postList { padding: 0; margin-left: 0; list-style-type: none; margin-bottom: 50px; }
@@ -1985,6 +2077,7 @@ if($requri != "install")
 				#highlightContainer { margin-bottom: 5px; }
 				#lifespanContainer { margin-bottom: 5px; }
 				#privacyContainer { margin-bottom: 5px; }
+				#encryptContainer { margin-bottom: 5px; }
 				#highlightContainer > select { width: 33%; background-color: #FFFFFF; border-top: 1px solid #CCCCCC; border-bottom: 1px solid #CCCCCC; border-left: none; border-right: none; }
 				#lifespanContainer > select { width: 33%; background-color: #FFFFFF; border-top: 1px solid #CCCCCC; border-bottom: 1px solid #CCCCCC; border-left: none; border-right: none; }
 				#privacyContainer > select { width: 33%; background-color: #FFFFFF; border-top: 1px solid #CCCCCC; border-bottom: 1px solid #CCCCCC; border-left: none; border-right: none; }
@@ -1992,6 +2085,7 @@ if($requri != "install")
 				#highlightContainer > label { width: 200px; display: block; }
 				#lifespanContainer > label { width: 200px; display: block; }
 				#privacyContainer > label { width: 200px; display: block; }
+				#encryptContainer > label { width: 200px; display: block; }
 				#fileUploadContainer { width: 48%; float: left; margin-bottom: 10px; }
 				#imageContainer { text-align: center; padding: 10px; }
 				#styleBar { text-align: left; position: relative; float: left; width: 48%; }
@@ -2743,6 +2837,15 @@ if($requri != "install" && @$_POST['submit'])
 			die("<div class=\"result\"><div class=\"error\">Spambot detected, I don't like that!</div></div></div></body></html>");
 
 		$pasteID = $bin->generateID();
+		$imageID = $pasteID;
+
+		if($CONFIG['pb_encrypt_pastes'] && @$_POST['encryption'])
+			{
+				$encryption = $bin->encrypt($CONFIG['pb_encryption_checkphrase'], $_POST['encryption']);
+				$imageID = md5($imageID . $bin->generateID()) . "_";
+			}
+		else
+			$encryption = FALSE;
 
 		if(@$_POST['urlField'])
 			$postedURL = $_POST['urlField'];
@@ -2767,7 +2870,7 @@ if($requri != "install" && @$_POST['submit'])
 		$uploadAttempt = FALSE;
 
 		if(strlen(@$_FILES['pasteImage']['name']) > 4 && $CONFIG['pb_images']) {
-			$imageUpload = $db->uploadFile($_FILES['pasteImage'], $pasteID);
+			$imageUpload = $db->uploadFile($_FILES['pasteImage'], $imageID);
 			if($imageUpload != FALSE) {
 				$postedURL = NULL;
 			}
@@ -2775,7 +2878,7 @@ if($requri != "install" && @$_POST['submit'])
 		}
 		
 		if(in_array(strtolower($postedURLInfo['extension']), $CONFIG['pb_image_extensions']) && $CONFIG['pb_images'] && $CONFIG['pb_download_images'] && !$imageUpload) {
-			$imageUpload = $db->downTheImg($postedURL, $pasteID);
+			$imageUpload = $db->downTheImg($postedURL, $imageID);
 			if($imageUpload != FALSE) {
 				$postedURL = NULL;
 				$exclam = NULL;
@@ -2823,12 +2926,22 @@ if($requri != "install" && @$_POST['submit'])
 			'Syntax' => $_POST['highlighter'],
 			'Lifespan' => $_POST['lifespan'],
 			'Protect' => $_POST['privacy'],
+			'Encrypted' => $encryption,
 			'Parent' => $requri,
 			'Content' => @$_POST['pasteEnter'],
 			'GeSHI' => $geshiCode,
 			'Style' => $geshiStyle
 		);
 
+		if($encryption)
+			{
+				$paste['Content'] = $bin->encrypt($paste['Content'], $_POST['encryption']);
+				if(strlen($paste['GeSHI']) > 1)
+					$paste['GeSHI'] = $bin->encrypt($paste['GeSHI'], $_POST['encryption']);
+				if(strlen($paste['Image']) > 1)
+					$paste['Image'] = $bin->encrypt($paste['Image'], $_POST['encryption']);
+			}
+		
 		if(@$_POST['pasteEnter'] == @$_POST['originalPaste'] && strlen($_POST['pasteEnter']) > 10)
 			die("<div class=\"error\">Please don't just repost what has already been said!</div></div></body></html>");
 		
@@ -2888,6 +3001,11 @@ if($requri != "install" && $CONFIG['pb_recent_posts'] && substr($requri, -1) != 
 							$rel = " rel=\"video\"";
 						}
 
+						if($paste_['Encrypted'] != NULL && $paste_['URL'] == NULL) {
+							$rel = " rel=\"locked\"";
+						}
+						
+
 						echo "<li id=\"" . $paste_['ID'] . "\" class=\"postItem\"><a href=\"" . $bin->linker($paste_['ID']) . $exclam . "\"" . $rel . ">" . stripslashes($paste_['Author']) . "</a><br />" . $bin->event($paste_['Datetime']) . " ago.</li>";
 					}
 					echo "</ul>";
@@ -2943,9 +3061,23 @@ if($requri && $requri != "install" && substr($requri, -1) != "!")
 
 		if($pasted = $db->readPaste($requri))
 			{
-
 				if($db->dbt == "mysql")
 					$pasted = $pasted[0];
+
+				if($pasted['Encrypted'] != NULL && !@$_POST['decrypt_phrase'])
+					die("<div class=\"result\"><div class=\"warn\">This paste is password protected!</div><div id=\"passFormContaineContainer\"><form id=\"passForm\" name=\"passForm\" action=\"" . $bin->linker($pasted['ID']) . "\" method=\"post\"><label for=\"decrypt_phrase\">Enter password</label><input type=\"password\" id=\"decrypt_phrase\" name=\"decrypt_phrase\" /> <input type=\"submit\" id=\"decrypt\" name=\"decrypt\" value=\"Unlock\" /></form></div></div></div></body></html>");
+				elseif($pasted['Encrypted'] != NULL && @$_POST['decrypt_phrase'] && !$bin->testDecrypt($pasted['Encrypted'], $_POST['decrypt_phrase']))
+					die("<div class=\"result\"><div class=\"error\">Password incorrect!</div><div><form id=\"passForm\" name=\"passForm\" action=\"" . $bin->linker($pasted['ID']) . "\" method=\"post\"><label for=\"decrypt_phrase\">Enter password</label><input type=\"password\" id=\"decrypt_phrase\" name=\"decrypt_phrase\" /> <input type=\"submit\" id=\"decrypt\" name=\"decrypt\" value=\"Unlock\" /></form></div></div></div></body></html>");	
+				elseif($pasted['Encrypted'] != NULL && @$_POST['decrypt_phrase'] && $bin->testDecrypt($pasted['Encrypted'], $_POST['decrypt_phrase']))
+					{
+						$pasted['Data'] = $bin->decrypt($pasted['Data'], $_POST['decrypt_phrase']);
+						if(strlen($pasted['GeSHI']) > 1)
+							$pasted['GeSHI'] = $bin->decrypt($pasted['GeSHI'], $_POST['decrypt_phrase']);
+						if(strlen($pasted['Image']) > 1)
+							$pasted['Image'] = $bin->decrypt($pasted['Image'], $_POST['decrypt_phrase']);
+					}
+				else
+					$pasted['Encrypted'] = NULL;
 
 				$pasted['Data'] = array('Orig' => $pasted['Data'], 'noHighlight' => array());
 
@@ -3102,6 +3234,9 @@ if($requri && $requri != "install" && substr($requri, -1) != "!")
 						if($CONFIG['pb_private'])
 							echo $privacyContainer;
 
+						if($CONFIG['pb_encrypt_pastes'])
+							echo "<div id=\"encryptContainer\"><label for=\"encryption\">Password Protect</label> <input type=\"password\" name=\"encryption\" id=\"encryption\" /></div>";
+
 						echo "<div class=\"spacer\">&nbsp;</div>";
 
 						echo "<div id=\"authorContainerReply\"><label for=\"authorEnter\">Your Name</label><br />
@@ -3209,7 +3344,7 @@ if($requri && $requri != "install" && substr($requri, -1) != "!")
 
 				if(count($stage) > 3)
 				{ echo "<li>Creating Database Tables. ";
-					$structure = "CREATE TABLE IF NOT EXISTS " . $CONFIG['mysql_connection_config']['db_table'] . " (ID varchar(255), Subdomain varchar(100), Datetime bigint, Author varchar(255), Protection int, Syntax varchar(255) DEFAULT 'plaintext', Parent longtext, Image longtext, ImageTxt longtext, URL longtext, Video longtext, Lifespan int, IP varchar(225), Data longtext, GeSHI longtext, Style longtext, INDEX (id)) ENGINE = INNODB CHARACTER SET utf8 COLLATE utf8_general_ci";
+					$structure = "CREATE TABLE IF NOT EXISTS " . $CONFIG['mysql_connection_config']['db_table'] . " (ID varchar(255), Subdomain varchar(100), Datetime bigint, Author varchar(255), Protection int, Encrypted longtext DEFAULT NULL, Syntax varchar(255) DEFAULT 'plaintext', Parent longtext, Image longtext, ImageTxt longtext, URL longtext, Video longtext, Lifespan int, IP varchar(225), Data longtext, GeSHI longtext, Style longtext, INDEX (id)) ENGINE = INNODB CHARACTER SET utf8 COLLATE utf8_general_ci";
 				if($db->dbt == "mysql")
 					{				
 						if(!mysql_query($structure, $db->link) && !$CONFIG['mysql_connection_config']['db_existing'])
@@ -3291,6 +3426,11 @@ if($requri && $requri != "install" && substr($requri, -1) != "!")
 				else
 					$service['api'] = array('style' => 'error', 'status' => 'Disabled', 'tip' => NULL);
 
+				if($CONFIG['pb_encrypt_pastes'])
+					$service['encrypting'] = array('style' => 'success', 'status' => 'Enabled');
+				else
+					$service['encrypting'] = array('style' => 'error', 'status' => 'Disabled');	
+
 				if($bin->_clipboard())
 					$service['clipboard'] = array('style' => 'success', 'status' => 'Enabled');
 				else
@@ -3362,7 +3502,7 @@ if($requri && $requri != "install" && substr($requri, -1) != "!")
 				$bin->setTagline($CONFIG['pb_tagline'])
 				. "<div id=\"result\">&nbsp;</div>
 				<div id=\"formContainer\">
-				<div id=\"instructions\" class=\"instructions\"><h2>How to use</h2><div>Fill out the form with data you wish to store online. You will be given an unique address to access your content that can be sent over IM/Chat/(Micro)Blog for online collaboration (eg, " . $bin->linker('z3n') . "). The following services have been made available by the administrator of this server:</div><ul id=\"serviceList\"><li><span class=\"success\">Enabled</span> Text</li><li><span class=\"" . $service['syntax']['style'] . "\">" . $service['syntax']['status'] . "</span> Syntax Highlighting</li><li><span class=\"" . $service['highlight']['style'] . "\">" . $service['highlight']['status'] . "</span> Line Highlighting</li><li><span class=\"" . $service['editing']['style'] . "\">" . $service['editing']['status'] . "</span> Editing</li><li><span class=\"" . $service['clipboard']['style'] . "\">" . $service['clipboard']['status'] . "</span> Copy to Clipboard</li><li><span class=\"" . $service['images']['style'] . "\">" . $service['images']['status'] . "</span> Image hosting</li><li><span class=\"" . $service['image_download']['style'] . "\">" . $service['image_download']['status'] . "</span> Copy image from URL</li><li><span class=\"" . $service['video']['style'] . "\">" . $service['video']['status'] . "</span> Video Embedding (YouTube, Vimeo &amp; DailyMotion)</li><li><span class=\"" . $service['flowplayer']['style'] . "\">" . $service['flowplayer']['status'] . "</span> Flash player for flv/mp4 files.</li><li><span class=\"" . $service['url']['style'] . "\">" . $service['url']['status'] . "</span> URL Shortening/Redirection</li><li><span class=\"" . $service['jQuery']['style'] . "\">" . $service['jQuery']['status'] . "</span> Visual Effects</li><li><span class=\"" . $service['jQuery']['style'] . "\">" . $service['jQuery']['status'] . "</span> AJAX Posting</li><li><span class=\"" . $service['api']['style'] . "\">" . $service['api']['status'] . "</span> API</li><li><span class=\"" . $service['subdomains']['style'] . "\">" . $service['subdomains']['status'] . "</span> Custom Subdomains " . $service['subdomains']['tip'] . "</li></ul><div class=\"spacer\">&nbsp;</div><div><strong>What to do</strong></div><div>Just paste your text, sourcecode or conversation into the textbox below, add a name if you wish" . $service['images']['tip'] . " then hit submit!" . $service['url']['tip'] . "" . $service['video']['tip'] . "" . $service['highlight']['tip'] . "</div><div class=\"spacer\">&nbsp;</div><div><strong>Some tips about usage;</strong> If you want to put a message up asking if the user wants to continue, add an &quot;!&quot; suffix to your URL (eg, " . $bin->linker('z3n') . "!).</div>" . $service['api']['tip'] . "<div class=\"spacer\">&nbsp;</div></div>
+				<div id=\"instructions\" class=\"instructions\"><h2>How to use</h2><div>Fill out the form with data you wish to store online. You will be given an unique address to access your content that can be sent over IM/Chat/(Micro)Blog for online collaboration (eg, " . $bin->linker('z3n') . "). The following services have been made available by the administrator of this server:</div><ul id=\"serviceList\"><li><span class=\"success\">Enabled</span> Text</li><li><span class=\"" . $service['syntax']['style'] . "\">" . $service['syntax']['status'] . "</span> Syntax Highlighting</li><li><span class=\"" . $service['highlight']['style'] . "\">" . $service['highlight']['status'] . "</span> Line Highlighting</li><li><span class=\"" . $service['editing']['style'] . "\">" . $service['editing']['status'] . "</span> Editing</li><li><span class=\"" . $service['encrypting']['style'] . "\">" . $service['encrypting']['status'] . "</span> Password Protection</li><li><span class=\"" . $service['clipboard']['style'] . "\">" . $service['clipboard']['status'] . "</span> Copy to Clipboard</li><li><span class=\"" . $service['images']['style'] . "\">" . $service['images']['status'] . "</span> Image hosting</li><li><span class=\"" . $service['image_download']['style'] . "\">" . $service['image_download']['status'] . "</span> Copy image from URL</li><li><span class=\"" . $service['video']['style'] . "\">" . $service['video']['status'] . "</span> Video Embedding (YouTube, Vimeo &amp; DailyMotion)</li><li><span class=\"" . $service['flowplayer']['style'] . "\">" . $service['flowplayer']['status'] . "</span> Flash player for flv/mp4 files.</li><li><span class=\"" . $service['url']['style'] . "\">" . $service['url']['status'] . "</span> URL Shortening/Redirection</li><li><span class=\"" . $service['jQuery']['style'] . "\">" . $service['jQuery']['status'] . "</span> Visual Effects</li><li><span class=\"" . $service['jQuery']['style'] . "\">" . $service['jQuery']['status'] . "</span> AJAX Posting</li><li><span class=\"" . $service['api']['style'] . "\">" . $service['api']['status'] . "</span> API</li><li><span class=\"" . $service['subdomains']['style'] . "\">" . $service['subdomains']['status'] . "</span> Custom Subdomains " . $service['subdomains']['tip'] . "</li></ul><div class=\"spacer\">&nbsp;</div><div><strong>What to do</strong></div><div>Just paste your text, sourcecode or conversation into the textbox below, add a name if you wish" . $service['images']['tip'] . " then hit submit!" . $service['url']['tip'] . "" . $service['video']['tip'] . "" . $service['highlight']['tip'] . "</div><div class=\"spacer\">&nbsp;</div><div><strong>Some tips about usage;</strong> If you want to put a message up asking if the user wants to continue, add an &quot;!&quot; suffix to your URL (eg, " . $bin->linker('z3n') . "!).</div>" . $service['api']['tip'] . "<div class=\"spacer\">&nbsp;</div></div>
 					<form id=\"pasteForm\" action=\"" . $bin->linker() . "\" method=\"post\" name=\"pasteForm\" enctype=\"multipart/form-data\">
 						<div><label for=\"pasteEnter\">Paste your text" . $service['url']['str'] . " here!" . $service['highlight']['tip'] . " <span id=\"showInstructions\">[ <a href=\"#\" onclick=\"return showInstructions();\">more info</a> ]" . $subdomainClicker . "</span></label><br />
 						<textarea id=\"pasteEnter\" name=\"pasteEnter\" onkeydown=\"return catchTab(event)\" " . $event . "=\"return checkIfURL(this);\"></textarea></div>
@@ -3403,6 +3543,10 @@ if($requri && $requri != "install" && substr($requri, -1) != "!")
 
 						if($CONFIG['pb_private'])
 							echo "<div id=\"privacyContainer\"><label for=\"privacy\">Paste Visibility</label> <select name=\"privacy\" id=\"privacy\"><option value=\"0\">Public</option> <option value=\"1\">Private</option></select></div>";
+
+						if($CONFIG['pb_encrypt_pastes'])
+							echo "<div id=\"encryptContainer\"><label for=\"encryption\">Password Protect</label> <input type=\"password\" name=\"encryption\" id=\"encryption\" /></div>";
+
 
 						echo "<div class=\"spacer\">&nbsp;</div>";
 
