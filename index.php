@@ -1,5 +1,9 @@
 <?php 
 
+// This file is broken, CONDITIONS:
+// All services enabled apart from jQuery
+// DOES NOT POST!
+
 /*
  *	Knoxious Open Pastebin		 v 1.1.7
  * ============================================================================
