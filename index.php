@@ -2321,19 +2321,19 @@ function submitPaste(targetButton) {
 
 				function showAdminTools(hideMe){
 					$('#showAdminFunctions').hide(500);
-					$('#hiddenAdmin').show(500);
+					$('#hiddenAdmin').slideDown(500);
 					return false;
 				}
 
 				function showInstructions(){
 					$('#showInstructions').hide(500);
-					$('#instructions').show(500);
+					$('#instructions').slideDown(500);
 					return false;
 				}
 
 				function showSubdomain(){
 					$('#showSubdomain').hide(500);
-					$('#subdomainForm').show(500);
+					$('#subdomainForm').slideDown(500);
 					return false;
 				}
 
@@ -2465,11 +2465,12 @@ function submitPaste(targetButton) {
 										$('#result').prepend('<div class="error" id="' + msg.error + '">' + msg.message + '</div>');
 									} else
 										{
-								buttonElement.attr('value', 'Submit your Paste');
-        							$('#result').prepend('<div class="success">Your paste has been successfully recorded!</div><div class="confirmURL">URL to your paste is <a href="' + msg.url + '">' + msg.url + '</a></div>');
+											buttonElement.attr('value', 'Submit your Paste');
+        										$('#result').prepend('<div class="success">Your paste has been successfully recorded!</div><div class="confirmURL">URL to your paste is <a href="' + msg.url + '">' + msg.url + '</a></div>');
+											$('#formContainer').slideUp(500);
 										}
 
-								window.scrollTo(0,0); 
+								window.scrollTo(0,0);
      							 },
 							error: function(msg) {
 								buttonElement.removeAttr('disabled');
@@ -2508,6 +2509,7 @@ function submitPaste(targetButton) {
 											{
 												buttonElement.attr('value', 'Submit your Paste');
         											$('#result').prepend('<div class="success">Your paste has been successfully recorded!</div><div class="confirmURL">URL to your paste is <a href="' + objData.url + '">' + objData.url + '</a></div>');
+												$('#formContainer').slideUp(500);
 											}
 									setTimeout(function(){ iFrame.remove(); }, 100);
 									window.scrollTo(0,0);
@@ -2957,7 +2959,7 @@ if($requri && $requri != "install" && substr($requri, -1) != "!")
 		echo "<div id=\"pastebin\" class=\"pastebin\">"
 			. "<h1>" .  $bin->setTitle($CONFIG['pb_name'])  . "</h1>" .
 			$bin->setTagline($CONFIG['pb_tagline'])
-			. "<div id=\"result\">&nbsp;</div>";
+			. "<div id=\"result\"></div>";
 
 		if($pasted = $db->readPaste($requri))
 			{
@@ -3400,7 +3402,7 @@ if($requri && $requri != "install" && substr($requri, -1) != "!")
 				echo "<div id=\"pastebin\" class=\"pastebin\">"
 				. "<h1>" .  $bin->setTitle($CONFIG['pb_name'])  . "</h1>" .
 				$bin->setTagline($CONFIG['pb_tagline'])
-				. "<div id=\"result\">&nbsp;</div>
+				. "<div id=\"result\"></div>
 				<div id=\"formContainer\">
 				<div id=\"instructions\" class=\"instructions\"><h2>How to use</h2><div>Fill out the form with data you wish to store online. You will be given an unique address to access your content that can be sent over IM/Chat/(Micro)Blog for online collaboration (eg, " . $bin->linker('z3n') . "). The following services have been made available by the administrator of this server:</div><ul id=\"serviceList\"><li><span class=\"success\">Enabled</span> Text</li><li><span class=\"" . $service['syntax']['style'] . "\">" . $service['syntax']['status'] . "</span> Syntax Highlighting</li><li><span class=\"" . $service['highlight']['style'] . "\">" . $service['highlight']['status'] . "</span> Line Highlighting</li><li><span class=\"" . $service['editing']['style'] . "\">" . $service['editing']['status'] . "</span> Editing</li><li><span class=\"" . $service['encrypting']['style'] . "\">" . $service['encrypting']['status'] . "</span> Password Protection</li><li><span class=\"" . $service['clipboard']['style'] . "\">" . $service['clipboard']['status'] . "</span> Copy to Clipboard</li><li><span class=\"" . $service['images']['style'] . "\">" . $service['images']['status'] . "</span> Image hosting</li><li><span class=\"" . $service['image_download']['style'] . "\">" . $service['image_download']['status'] . "</span> Copy image from URL</li><li><span class=\"" . $service['video']['style'] . "\">" . $service['video']['status'] . "</span> Video Embedding (YouTube, Vimeo &amp; DailyMotion)</li><li><span class=\"" . $service['flowplayer']['style'] . "\">" . $service['flowplayer']['status'] . "</span> Flash player for flv/mp4 files.</li><li><span class=\"" . $service['url']['style'] . "\">" . $service['url']['status'] . "</span> URL Shortening/Redirection</li><li><span class=\"" . $service['jQuery']['style'] . "\">" . $service['jQuery']['status'] . "</span> Visual Effects</li><li><span class=\"" . $service['jQuery']['style'] . "\">" . $service['jQuery']['status'] . "</span> AJAX Posting</li><li><span class=\"" . $service['api']['style'] . "\">" . $service['api']['status'] . "</span> API</li><li><span class=\"" . $service['subdomains']['style'] . "\">" . $service['subdomains']['status'] . "</span> Custom Subdomains</li></ul><div class=\"spacer\">&nbsp;</div><div><strong>What to do</strong></div><div>Just paste your text, sourcecode or conversation into the textbox below, add a name if you wish" . $service['images']['tip'] . " then hit submit!" . $service['url']['tip'] . "" . $service['video']['tip'] . "" . $service['highlight']['tip'] . "</div><div class=\"spacer\">&nbsp;</div><div><strong>Some tips about usage;</strong> If you want to put a message up asking if the user wants to continue, add an &quot;!&quot; suffix to your URL (eg, " . $bin->linker('z3n') . "!).</div>" . $service['api']['tip'] . "<div class=\"spacer\">&nbsp;</div></div>" . $service['subdomains']['tip'] . "
 				<form id=\"pasteForm\" action=\"" . $bin->linker() . "\" method=\"post\" name=\"pasteForm\" enctype=\"multipart/form-data\">	
