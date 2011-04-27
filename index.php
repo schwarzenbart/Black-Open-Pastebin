@@ -627,7 +627,6 @@ class bin
 				if($privacy = $this->db->readPaste($requri))
 					{
 						
-		
 						if($this->db->dbt == "mysql")
 							$privacy = $privacy[0];
 
@@ -638,6 +637,10 @@ class bin
 										$robot = "index,nofollow";
 									else
 										$robot = "index,follow";
+
+									if($privacy['Encrypted'] != NULL)
+											$robot = "noindex,nofollow";
+
 								break;
 								case 1:
 									if($privacy['URL'] != "")
