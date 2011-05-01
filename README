@@ -23,9 +23,10 @@ CONTENTS
 ------------------------------------------------------------------------------
 
 	1. 	Authors / Contributors
-	2.	Requirements
-	3.	Installation
-	4.	Copying
+	2.	Features
+	3.	Requirements
+	4.	Installation
+	5.	Copying
 
 
 
@@ -34,6 +35,32 @@ AUTHORS/CONTRIBUTORS
 
 	+	Xan Manning		(xan[dot]manning[at]gmail[dot]com)
 	+	Matt Klich		(https://github.com/elementalvoid)
+	+	Shadow-Majestic		(https://github.com/shadowmajestic)
+
+
+
+FEATURES
+------------------------------------------------------------------------------
+Here is a list of features that this pastebin software boasts.
+
+	+	Line Highlighting
+	+	Syntax Highlighting (with GeSHi, not included)
+	+	Editing pastes, history.
+	+	Copy to clipboard (with _clipboard.swf, included - requires
+				   swfobject.js, not included.)
+	+	Image hosting
+	+	Copying images from URLs
+	+	Embedding videos from YouTube, DailyMotion and Vimeo
+	+	Flash player for flv and mp4 files (with FlowPlayer, not included)
+	+	URL Shortening/redirection
+	+	Visual Effects (with jQuery, not included)
+	+	AJAX Posting (with jQuery, not included)
+	+	Developer API access.
+	+	Custom Subdomains
+	+	Robot Spam protection
+	+	Paste privacy settings
+	+	Password protected and Encrypted Pastes
+	+	Paste lifespan settings
 
 
 
