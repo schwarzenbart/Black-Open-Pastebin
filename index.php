@@ -1516,12 +1516,12 @@ if(file_exists('./INSTALL_LOCK') && @$_POST['subdomain'] && $CONFIG['pb_subdomai
 	{
 		$seed = $bin->makeSubdomain(@$_POST['subdomain']);
 		if($CONFIG['pb_https_class_1'])
-			$CONFIG['pb_protocol_temp'] = "http";
+			$CONFIG['pb_protocol_fix'] = "http";
 		else
-			$CONFIG['pb_protocol_temp'] = $CONFIG['pb_protocol'];
+			$CONFIG['pb_protocol_fix'] = $CONFIG['pb_protocol'];
 
 		if($seed)
-			header("Location: " . str_replace($CONFIG['pb_protocol'] . "://", $CONFIG['pb_protocol_temp'] . "://" . $seed . ".", $bin->linker()));
+			header("Location: " . str_replace($CONFIG['pb_protocol'] . "://", $CONFIG['pb_protocol_fix'] . "://" . $seed . ".", $bin->linker()));
 		else
 			$error_subdomain = TRUE;
 	}
