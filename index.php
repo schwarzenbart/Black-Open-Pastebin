@@ -1515,6 +1515,8 @@ $bin->db->config['pb_pass'] = $CONFIG['pb_pass'];
 if(file_exists('./INSTALL_LOCK') && @$_POST['subdomain'] && $CONFIG['pb_subdomains'])
 	{
 		$seed = $bin->makeSubdomain(@$_POST['subdomain']);
+		if($CONFIG['pb_https_class_1'])
+			$CONFIG['pb_protocol'] = "http";		
 		if($seed)
 			header("Location: " . str_replace($CONFIG['pb_protocol'] . "://", $CONFIG['pb_protocol'] . "://" . $seed . ".", $bin->linker()));
 		else
