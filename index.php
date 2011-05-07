@@ -1813,9 +1813,9 @@ if($requri == "api")
 					$encryption = FALSE;
 
 				if(@$_POST['urlField'])
-					$postedURL = $_POST['urlField'];
+					$postedURL = htmlspecialchars($_POST['urlField']);
 				elseif(preg_match('/^((ht|f)(tp|tps)|mailto|irc|skype|git|svn|cvs|aim|gtalk|feed):/', @$_POST['pasteEnter']) && count(explode("\n", $_POST['pasteEnter'])) < 2)
-					$postedURL = $_POST['pasteEnter'];
+					$postedURL = htmlspecialchars($_POST['pasteEnter']);
 				else
 					$postedURL = NULL;
 
@@ -2860,9 +2860,9 @@ if($requri != "install" && @$_POST['submit'])
 			$encryption = FALSE;
 
 		if(@$_POST['urlField'])
-			$postedURL = $_POST['urlField'];
+			$postedURL = htmlspecialchars($_POST['urlField']);
 		elseif(preg_match('/^((ht|f)(tp|tps)|mailto|irc|skype|git|svn|cvs|aim|gtalk|feed):/', @$_POST['pasteEnter']) && count(explode("\n", $_POST['pasteEnter'])) < 2)
-			$postedURL = $_POST['pasteEnter'];
+			$postedURL = htmlspecialchars($_POST['pasteEnter']);
 		else
 			$postedURL = NULL;
 
