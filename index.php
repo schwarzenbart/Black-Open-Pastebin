@@ -2574,6 +2574,7 @@ function submitPaste(targetButton) {
 										$('#result').prepend('<div class="error" id="' + msg.error + '">' + msg.message + '</div>');
 									} else
 										{
+											$('#result').prepend('<div class="success"><a href="' + msg.url + '">Redirecting</a>...</div>');
 											window.location = msg.url;
 										}
 
@@ -2614,6 +2615,7 @@ function submitPaste(targetButton) {
 											$('#result').prepend('<div class="error" id="' + objData.error + '">' + objData.message + '</div>');
 										} else
 											{
+												$('#result').prepend('<div class="success"><a href="' + msg.url + '">Redirecting</a>...</div>');
 												window.location = msg.url;
 											}
 									setTimeout(function(){ iFrame.remove(); }, 100);
