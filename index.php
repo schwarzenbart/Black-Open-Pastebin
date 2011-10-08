@@ -39,8 +39,10 @@ if($CONFIG['pb_encrypt_pastes'] == TRUE && !function_exists('mcrypt_encrypt'))
 if(@$_POST['encryption'])
 	$_POST['encryption'] = md5(preg_replace("/[^a-zA-Z0-9\s]/", "i0", $_POST['encryption']));
 
-if(@$_POST['decrypt_phrase'])
+if(@$_POST['decrypt_phrase']) {
+	$_temp_decrypt_phrase = $_POST['decrypt_phrase'];
 	$_POST['decrypt_phrase'] = md5(preg_replace("/[^a-zA-Z0-9\s]/", "i0", $_POST['decrypt_phrase']));
+}
 
 if($CONFIG['pb_gzip'])
 	ob_start("ob_gzhandler");
@@ -3242,7 +3244,7 @@ if($requri && $requri != "install" && substr($requri, -1) != "!")
 							echo $privacyContainer;
 
 						if($CONFIG['pb_encrypt_pastes'])
-							echo "<div id=\"encryptContainer\"><label for=\"encryption\">Password Protect</label> <input type=\"password\" name=\"encryption\" id=\"encryption\" /></div>";
+							echo "<div id=\"encryptContainer\"><label for=\"encryption\">Password Protect</label> <input type=\"password\" value=\"" . $_temp_decrypt_phrase . "\" name=\"encryption\" id=\"encryption\" /></div>";
 
 						echo "<div class=\"spacer\">&nbsp;</div>";
 
