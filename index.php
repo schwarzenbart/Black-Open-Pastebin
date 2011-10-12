@@ -1576,7 +1576,7 @@ if($requri == "pastes")
 	{
 		if($bin->db->dbt == "mysql")
 			{
-				$userPastes = $bin->getLastPosts(50, $reqhash);
+				$userPastes = $bin->getLastPosts(200, $reqhash);
 				foreach($userPastes as $upaste)
 					echo "<a href=\"" . $bin->linker($upaste['ID']) . "\">" . $upaste['ID'] . "</a> ";
 
