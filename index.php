@@ -1576,7 +1576,9 @@ if($requri == "pastes")
 	{
 		if($bin->db->dbt == "mysql")
 			{
-				$userPastes = $bin->getLastPosts(200, $reqhash);
+				echo "<h1>Pastes by " . urldecode($reqhash) . "</h1><br />";
+				echo "This is a temporary holding page for showing pastes by certain users.<br /><br />";
+				$userPastes = $bin->getLastPosts(200, urldecode($reqhash));
 				foreach($userPastes as $upaste)
 					echo "<a href=\"" . $bin->linker($upaste['ID']) . "\">" . $upaste['ID'] . "</a> ";
 
@@ -3146,7 +3148,10 @@ if($requri && $requri != "install" && substr($requri, -1) != "!")
 						$lifeString = "in " . $bin->event(time() - ($pasted['Lifespan'] - time()));
 
 				if(gmdate('U') > $pasted['Lifespan'])
-					{ $db->dropPaste($requri); die("<div class=\"result\"><div class=\"warn\">This paste has either expired or doesn't exist!</div></div></div></body></html>"); }
+				{ $db->dropPaste($requri); die("<div class=\"result\"><div class=\"warn\">This paste has either expired or doesn't exist!</div></div></div></body></html>"); }
+
+				if($db->dbt == "mysql")
+					$pasted['Author'] = "<a href=\"" . $bin->linker('pastes') . "@" . urlencode(stripslashes($pasted['Author'])) . "\">" . stripslashes($pasted['Author']) . "</a>";
 
 				echo "<div id=\"aboutPaste\"><div id=\"pasteID\"><strong>PasteID</strong>: " . $requri . "</div><strong>Pasted by</strong> " . stripslashes($pasted['Author']) . ", <em title=\"" . $bin->event($pasted['Datetime']) . " ago\">" . gmdate($CONFIG['pb_datetime'], $pasted['Datetime']) . " GMT</em><br />
 					<strong>Expires</strong> " . $lifeString . "<br />
