@@ -2,6 +2,8 @@ Knoxious Open Pastebin
 ======================
 ### v1.1.5 
 
+Stable
+
 Copyright (c) 2009-2011 Xan Manning (http://xan-manning.co.uk/)
 
 Released under the terms of the MIT License.
