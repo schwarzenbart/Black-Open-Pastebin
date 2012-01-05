@@ -23,7 +23,8 @@ CONTENTS
 2. Features
 3. Requirements
 4. Installation
-5. Copying
+5. ToDo
+6. Copying
 
 
 FEATURES
@@ -47,6 +48,8 @@ Here is a list of features that this pastebin software boasts.
  * Robot Spam protection
  * Paste privacy settings
  * Paste lifespan settings
+ * Password Protected/Encrypted Pastes
+ * List pastes by Username
 
 
 AUTHORS/CONTRIBUTORS
@@ -81,7 +84,7 @@ Linux*
 Linux*
 
  * Lighttpd + FastCGI
- * nginx + FastCGI
+ * nginx (>= 0.7.x) + FastCGI
 
 Windows Server 2008 R2
 
@@ -133,6 +136,17 @@ INSTALLATION
 9. Done.
 
 
+TODO
+----
+
+ * Code Tidy
+ * Control ID format (Numerical, Alphanumerical, "Random" and Hex)
+ * Password Protected and Encrypted Pastes (CURRENTLY IN TESTING BRANCH)
+ * List Author Pastes (CURRENTLY IN UNSTABLE BRANCH, UNFORMATTED)
+ * Temporary user paste deletion rights
+ * IP Bans
+ * XML API Response
+
 
 COPYING
 -------
@@ -156,4 +170,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
-
