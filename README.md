@@ -23,7 +23,8 @@ CONTENTS
 2. Features
 3. Requirements
 4. Installation
-5. Copying
+5. ToDo
+6. Copying
 
 
 FEATURES
@@ -81,7 +82,7 @@ Linux*
 Linux*
 
  * Lighttpd + FastCGI
- * nginx + FastCGI
+ * nginx (>= 0.7.x) + FastCGI
 
 Windows Server 2008 R2
 
@@ -132,6 +133,17 @@ INSTALLATION
 8. CHMOD the containing folder to 0755.
 9. Done.
 
+
+TODO
+----
+
+ * Code Tidy
+ * Control ID format (Numerical, Alphanumerical, "Random" and Hex)
+ * Password Protected and Encrypted Pastes (CURRENTLY IN TESTING BRANCH)
+ * List Author Pastes (CURRENTLY IN UNSTABLE BRANCH, UNFORMATTED)
+ * Temporary user paste deletion rights
+ * IP Bans
+ * XML API Response
 
 
 COPYING
