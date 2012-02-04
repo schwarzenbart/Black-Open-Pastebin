@@ -138,13 +138,17 @@ INSTALLATION
 TODO
 ----
 
- * Code Tidy
+ * Code Tidy, Optimise, remove bloat.
  * Control ID format (Numerical, Alphanumerical, "Random" and Hex)
  * Password Protected and Encrypted Pastes (CURRENTLY IN TESTING BRANCH)
- * List Author Pastes (CURRENTLY IN UNSTABLE BRANCH, UNFORMATTED)
+ * List Author Pastes, details of paste. (CURRENTLY IN UNSTABLE BRANCH, UNFORMATTED)
+ * Image Thumbnails (Using either GD or ImageMagick)
+ * Languages
+ * Remove Video stuff...
+ * Change the way that Syntax Highlighting stuff is stored (Save disk space)
  * Temporary user paste deletion rights
  * IP Bans
- * XML API Response
+ * XML or JSON API Response
 
 
 COPYING
