@@ -3189,7 +3189,7 @@ if($requri && $requri != "install" && substr($requri, -1) != "!")
 						echo "</ol></div></div>";
 					} else
 						{
-							echo "<div class=\"spacer\">&nbsp;</div><div id=\"retrievedPaste\"><div id=\"lineNumbers\">";
+							echo "<div class=\"spacer\">&nbsp;</div><div id=\"retrievedPaste\" class=\"css\"><div id=\"lineNumbers\">";
 							echo stripslashes($pasted['GeSHI']);
 							echo "</div></div><div class=\"spacer\">&nbsp;</div>";
 						}
