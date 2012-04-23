@@ -17,6 +17,8 @@ A quick to set up, rapid install, two-file pastebin! (or at least can be) Suppor
 
 [![Flattr this git repo](http://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=xan.manning&url=https://github.com/xanmanning/Knoxious-Open-Pastebin&title=Knoxious-Open-Pastebin&language=&tags=github&category=software) 
 
+***BITCOIN DONTATIONS*** 1BFhtdVYmtAuYostpZLDAiGt1dmJaHTRDW
+
 
 CONTENTS
 --------
