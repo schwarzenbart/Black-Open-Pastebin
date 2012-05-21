@@ -91,19 +91,6 @@ $CONFIG['pb_encryption_checkphrase'] = "Decrypted";
 $CONFIG['pb_rewrite'] = FALSE;
 # $CONFIG['pb_rewrite'] = TRUE;
 
-// Subdomain support? This will let people have their
-// own subdomains for their pastebin.
-// Wildcard Domains and DNS must be enabled else this will fail!
-// TRUE or FALSE
-$CONFIG['pb_subdomains'] = FALSE;
-# $CONFIG['pb_subdomains'] = TRUE;
-
-// Disable HTTPS for Subdomains (Class 1 Issue)
-// The pastebin supports HTTPS however class 1 does not
-// work with subdomains.
-$CONFIG['pb_https_class_1'] = FALSE;
-# $CONFIG['pb_https_class_1'] = TRUE;
-
 // Enable GZip compression
 // WARNING: Requires more CPU
 $CONFIG['pb_gzip'] = FALSE;
@@ -124,12 +111,6 @@ $CONFIG['pb_id_length'] = 1;
 // Hexlike IDs (only uses numbers 0-9, letters a-f)
 $CONFIG['pb_hexlike_id'] = FALSE;
 # $CONFIG['pb_hexlike_id'] = TRUE;
-
-// Server side API Adaptor?
-// This allows Javascript frameworks like jQuery to perform cross-domain AJAX.
-// Example code: http://knoxious.co.uk/Sharpshooter
-$CONFIG['pb_api_adaptor'] = FALSE;
-# $CONFIG['pb_api_adaptor'] = "path/to/adaptor.php";
 
 // Use alternate Pastebin stylesheet, FALSE uses default
 // Note that URLs are accepted!
@@ -152,18 +133,6 @@ $CONFIG['pb_line_highlight'] = FALSE;
 // Lets you change the color of how a line is highlighted
 $CONFIG['pb_line_highlight_style'] = FALSE;
 # $CONFIG['pb_line_highlight_style'] = 'background-color: #FFFFAA; font-weight: bolder; color: #000000;';
-
-// Path to jQuery (if you want to use it)
-// jQuery adds tiger-stripes, effects, AJAX and resize textbox
-// Note that URLs are accepted!
-$CONFIG['pb_jQuery'] = FALSE;
-# $CONFIG['pb_jQuery'] = "path/to/jQuery.js";
-
-// Path to _clipboard.swf (allows copying)
-// http://knoxious.co.uk/Knoxious+Pastebin/index.html#_clipboard
-// Note that swfobject.js is also required in the same Directory
-$CONFIG['pb_clipboard'] = FALSE;
-# $CONFIG['pb_clipboard'] = "path/to/_clipboard.swf";
 
 // Date Format (see PHP.net's entry on date();)
 $CONFIG['pb_datetime'] = "Y-m-d H:i:s";
@@ -200,18 +169,6 @@ $CONFIG['pb_image_extensions'] = array("jpg", "gif", "png");
 // Maximum size of Images in bytes, FALSE for None.
 $CONFIG['pb_image_maxsize'] = 2097152; 
 # (2Mb, you will need to change your php.ini to accomodate higher!)
-
-// Enable Video embedding? (TRUE or FALSE)
-$CONFIG['pb_video'] = FALSE;
-
-// Enable FlowPlayer for playing .flv/mp4 files? (Path or FALSE) Can be a URL.
-// This must include (renamed) flowplayer.swf, flowplayer.controls.swf, flowplayer.min.js
-// http://flowplayer.org
-$CONFIG['pb_flowplayer'] = FALSE;
-# $CONFIG['pb_flowplayer'] = "path/to/flowplayer.swf";
-
-// Embedded Video Size (in Pixels)
-$CONFIG['pb_video_size'] = array('width' => 600, 'height' => 338);
 
 // Allow URL Shortening/Redirection Service? (TRUE or FALSE)
 $CONFIG['pb_url'] = FALSE;
