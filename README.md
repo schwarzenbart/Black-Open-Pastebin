@@ -3,10 +3,12 @@ Black Open Pastebin
 ### v0.0.1 
 
 Edited by schwarzenbart (2012)
+
 Donate (BTC): 15N9ahAiCVHNCJEUF9YA6AEt8Hg5BmnPR6
 
 ### Original Author
 Copyright (c) 2009-2011 Xan Manning (http://xan-manning.co.uk/)
+
 (Please also tip the original author Bitcoin wallet): 1BFhtdVYmtAuYostpZLDAiGt1dmJaHTRDW 
 
 Released under the terms of the MIT License.
