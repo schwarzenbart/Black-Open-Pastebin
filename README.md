@@ -11,6 +11,10 @@ Copyright (c) 2009-2011 Xan Manning (http://xan-manning.co.uk/)
 
 (Please also tip the original author Bitcoin wallet): 1BFhtdVYmtAuYostpZLDAiGt1dmJaHTRDW 
 
+
+More Information
+----------------
+
 Released under the terms of the MIT License.
 See the MIT for details (http://opensource.org/licenses/mit-license.php).
 
