@@ -1,10 +1,10 @@
 <?php 
 
 /*
- *	Knoxious Open Pastebin		 v 1.6.0
+ *	Knoxious Open Pastebin	(MODIFIED)	 v 1.6.0
  * ============================================================================
  *	
- *	Copyright (c) 2009-2010 Xan Manning (http://xan-manning.co.uk/)
+ *	Copyright (c) 2009-2010
  *
  * 	Released under the terms of the MIT License.
  * 	See the MIT for details (http://opensource.org/licenses/mit-license.php).
@@ -15,8 +15,8 @@
  *
  *	Supports text and image hosting, url and video linking.
  *
- *	URL: 		http://xan-manning.co.uk/
- *	EXAMPLE: 	http://pzt.me/
+ *	URL: 		
+ *	EXAMPLE: 	http://hvieybi6rb45wfpg.onion/
  *
  */
 
@@ -672,7 +672,7 @@ class bin
 		
 		public function generateID($id = FALSE, $iterations = 0)
 			{
-				$checkArray = array('install', 'api', 'defaults', 'recent', 'raw', 'moo', 'pastes', 'subdomain', 'forbidden');
+				$checkArray = array('install', 'api', 'defaults', 'recent', 'raw', 'download', 'moo', 'pastes', 'subdomain', 'forbidden');
 
 				if($iterations > 0 && $iterations < 4 && $id != FALSE)
 					$id = $this->generateRandomString($this->db->getLastID());
@@ -994,7 +994,7 @@ class bin
 
 		public function generateRandomString($length)
 			{
-				$checkArray = array('install', 'api', 'defaults', 'recent', 'raw', 'moo', 'pastes', 'subdomain', 'forbidden', 0);
+				$checkArray = array('install', 'api', 'defaults', 'recent', 'raw', 'download', 'moo', 'pastes', 'subdomain', 'forbidden', 0);
 
 				$characters = "0123456789abcdefghijklmnopqrstuvwxyz";  
 				if($this->db->config['pb_hexlike_id'])
@@ -2133,6 +2133,22 @@ if($requri != "install" && $requri != NULL && substr($requri, -1) != "!" && !$_P
 			die('There was an error!');
 	}
 
+if($requri != "install" && $requri != NULL && substr($requri, -1) != "!" && !$_POST['adminProceed'] && $reqhash == "download")
+        {
+                if($pasted = $db->readPaste($requri))
+                        {
+                                if($db->dbt == "mysql")
+                                        $pasted = $pasted[0];
+
+                                header("Content-Type: text/plain; charset=utf-8");
+				header("Content-Disposition: attachment; filename='" . $requri . ".txt'");
+                                die($db->rawHTML($bin->noHighlight($pasted['Data'])));
+                        }
+                else
+                        die('There was an error!');
+        }
+
+
 $pasteinfo = array();
 if($requri != "install")
 	$bin->cleanUp($CONFIG['pb_recent_posts']);
@@ -2149,7 +2165,7 @@ if($requri != "install")
 		<meta name="Description" content="A quick, simple, multi-purpose pastebin." />	
 		<meta name="Keywords" content="simple quick pastebin image hosting video linking embedding url shortening syntax highlighting" />
 		<meta name="Robots" content="<?php echo $bin->robotPrivacy($requri); ?>" /> 
-		<meta name="Author" content="Xan Manning, Knoxious.co.uk" />
+		<meta name="Author" content="Edited by..." />
 
 
 		<?php
@@ -2340,42 +2356,6 @@ function showSubdomain(){
 	return false;
 }
 
-function toggleWrap() {
-	var n = 0;
-	var pres = document.getElementsByTagName('pre');
-
-	for(n in pres)
-		{
-			if(pres[n].style != null && (pres[n].style.whiteSpace == \"pre\" || pres[n].style.whiteSpace == \"\")) {
-					pres[n].style.whiteSpace = \"pre-wrap\";
-			}
-			else if(pres[n].style != null) {
-				pres[n].style.whiteSpace = \"pre\";
-			}
-		}
-
-	return false;
-}
-
-function toggleExpand() {
-	if(document.getElementById('lineNumbers').style.maxHeight != \"none\") {
-			document.getElementById('lineNumbers').style.maxHeight = \"none\";
-			document.getElementById('lineNumbers').style.width = \"auto\";
-	}
-	else {
-		document.getElementById('lineNumbers').setAttribute('style', '');
-	}
-	return false;
-}
-
-function toggleStyle(){
-	if(document.getElementById('orderedList').getAttribute('class') == \"monoText\" || document.getElementById('orderedList').getAttribute('class') == \"\")
-		document.getElementById('orderedList').setAttribute(\"class\", \"plainText\");
-	else
-		document.getElementById('orderedList').setAttribute(\"class\", \"monoText\");
-	return false;
-}
-
 function submitPaste(targetButton) {
 	var disabledButton = document.createElement('input');
 	var parentContainer = document.getElementById('submitContainer');
@@ -2473,35 +2453,6 @@ function submitPaste(targetButton) {
 				}
 
 
-				function toggleWrap(){
-					if($('pre').css('white-space') == "pre")
-						$('pre').css({ whiteSpace: "pre-wrap"});
-					else 
-						$('pre').removeAttr('style').css({ whiteSpace: "pre" });
-
-					return false;
-				}
-
-				function toggleExpand(){
-					if($('#lineNumbers').css('maxHeight') != "none")
-						$('#lineNumbers').css({ maxHeight: "none", width: "auto" });
-					else
-						$('#lineNumbers').removeAttr('style');
-
-					return false;
-				}
-
-				function toggleStyle(){
-					if($('#orderedList').attr('class') == "monoText" || $('#orderedList').attr('class') == "") {
-						$('#orderedList').attr('class', 'plainText');
-						$('.alternate').attr('class', 'line');
-					}
-					else {
-						$('#orderedList').attr('class', 'monoText');
-						$('#orderedList li:nth-child(even)').addClass('alternate');
-					}
-					return false;
-				}
 
 				/* AJAXIAN */
 
@@ -3170,9 +3121,9 @@ if($requri && $requri != "install" && substr($requri, -1) != "!")
 					echo "<div class=\"warn\"><strong>This is an edit of</strong> <a href=\"" . $bin->linker($pasted['Parent']) . "\">" . $bin->linker($pasted['Parent']) . "</a></div>";
 
 				if(!$bin->highlight() || (!is_bool($pasted['Image']) && !is_numeric($pasted['Image'])) || ($pasted['Video'] && $CONFIG['pb_video']) || $pasted['Syntax'] == "plaintext")
-					echo "<div id=\"styleBar\"><strong>Toggle</strong> <a href=\"#\" onclick=\"return toggleExpand();\">Expand</a> &nbsp;  <a href=\"#\" onclick=\"return toggleWrap();\">Wrap</a> &nbsp; <a href=\"#\" onclick=\"return toggleStyle();\">Style</a> &nbsp; <a href=\"" . $bin->linker($pasted['ID'] . '@raw') . "\">Raw</a></div>";
+					echo "<div id=\"styleBar\"><strong>Tools</strong> <a href=\"" . $bin->linker($pasted['ID'] . '@raw') . "\">Raw</a> &nbsp; <a href=\"" . $bin->linker($pasted['ID'] . '@download') . "\">Download</a></div>";
 				else
-					echo "<div id=\"styleBar\"><strong>Toggle</strong> <a href=\"#\" onclick=\"return toggleExpand();\">Expand</a> &nbsp;  <a href=\"#\" onclick=\"return toggleWrap();\">Wrap</a> &nbsp; <a href=\"" . $bin->linker($pasted['ID'] . '@raw') . "\">Raw</a></div>";
+					echo "<div id=\"styleBar\"><strong>Tools</strong> <a href=\"" . $bin->linker($pasted['ID'] . '@raw') . "\">Raw</a> &nbsp; <a href=\"" . $bin->linker($pasted['ID'] . '@download') . "\">Download</a></div>";
 
 				if($bin->_clipboard())
 					echo "<div class=\"_clipboardBar\"><span class=\"copyText\" id=\"_copyText\">Copy Contents</span> &nbsp; <span class=\"copyText\" id=\"_copyURL\">Copy URL</span></div>";
@@ -3255,7 +3206,7 @@ if($requri && $requri != "install" && substr($requri, -1) != "!")
 						if($pasted['Protection'])
 							$enabled = "disabled";
 						
-						$privacyContainer = "<div id=\"privacyContainer\"><label for=\"privacy\">Paste Visibility</label> <select name=\"privacy\" id=\"privacy\" " . $enabled . "><option value=\"0\">Public</option> <option value=\"1\">Private</option></select></div>";
+						$privacyContainer = "<div id=\"privacyContainer\"><label for=\"privacy\">Paste Visibility</label> <select name=\"privacy\" id=\"privacy\" " . $enabled . "><option value=\"1\">Private</option> <option value=\"0\">Public</option></select></div>";
 
 						$selecter = '/value="' . $pasted['Protection'] . '"/';
 						$replacer = 'value="' . $pasted['Protection'] . '" selected="selected"';
@@ -3541,7 +3492,7 @@ if($requri && $requri != "install" && substr($requri, -1) != "!")
 				<div id=\"formContainer\">
 				<div id=\"instructions\" class=\"instructions\"><h2>How to use</h2><div>Fill out the form with data you wish to store online. You will be given an unique address to access your content that can be sent over IM/Chat/(Micro)Blog for online collaboration (eg, " . $bin->linker('z3n') . "). The following services have been made available by the administrator of this server:</div><ul id=\"serviceList\"><li><span class=\"success\">Enabled</span> Text</li><li><span class=\"" . $service['syntax']['style'] . "\">" . $service['syntax']['status'] . "</span> Syntax Highlighting</li><li><span class=\"" . $service['highlight']['style'] . "\">" . $service['highlight']['status'] . "</span> Line Highlighting</li><li><span class=\"" . $service['editing']['style'] . "\">" . $service['editing']['status'] . "</span> Editing</li><li><span class=\"" . $service['encrypting']['style'] . "\">" . $service['encrypting']['status'] . "</span> Password Protection</li><li><span class=\"" . $service['clipboard']['style'] . "\">" . $service['clipboard']['status'] . "</span> Copy to Clipboard</li><li><span class=\"" . $service['images']['style'] . "\">" . $service['images']['status'] . "</span> Image hosting</li><li><span class=\"" . $service['image_download']['style'] . "\">" . $service['image_download']['status'] . "</span> Copy image from URL</li><li><span class=\"" . $service['video']['style'] . "\">" . $service['video']['status'] . "</span> Video Embedding (YouTube, Vimeo &amp; DailyMotion)</li><li><span class=\"" . $service['flowplayer']['style'] . "\">" . $service['flowplayer']['status'] . "</span> Flash player for flv/mp4 files.</li><li><span class=\"" . $service['url']['style'] . "\">" . $service['url']['status'] . "</span> URL Shortening/Redirection</li><li><span class=\"" . $service['jQuery']['style'] . "\">" . $service['jQuery']['status'] . "</span> Visual Effects</li><li><span class=\"" . $service['jQuery']['style'] . "\">" . $service['jQuery']['status'] . "</span> AJAX Posting</li><li><span class=\"" . $service['api']['style'] . "\">" . $service['api']['status'] . "</span> API</li><li><span class=\"" . $service['subdomains']['style'] . "\">" . $service['subdomains']['status'] . "</span> Custom Subdomains</li></ul><div class=\"spacer\">&nbsp;</div><div><strong>What to do</strong></div><div>Just paste your text, sourcecode or conversation into the textbox below, add a name if you wish" . $service['images']['tip'] . " then hit submit!" . $service['url']['tip'] . "" . $service['video']['tip'] . "" . $service['highlight']['tip'] . "</div><div class=\"spacer\">&nbsp;</div><div><strong>Some tips about usage;</strong> If you want to put a message up asking if the user wants to continue, add an &quot;!&quot; suffix to your URL (eg, " . $bin->linker('z3n') . "!).</div>" . $service['api']['tip'] . "<div class=\"spacer\">&nbsp;</div></div>" . $service['subdomains']['tip'] . "
 				<form id=\"pasteForm\" action=\"" . $bin->linker() . "\" method=\"post\" name=\"pasteForm\" enctype=\"multipart/form-data\">	
-				<div><label for=\"pasteEnter\" class=\"pasteEnterLabel\">Paste your text" . $service['url']['str'] . " here!" . $service['highlight']['tip'] . " <span id=\"showInstructions\">[ <a href=\"#\" onclick=\"return showInstructions();\">more info</a> ]</span><span id=\"showSubdomain\">" . $subdomainClicker . "</span></label>
+				<div><label for=\"pasteEnter\" class=\"pasteEnterLabel\">Paste your text" . $service['url']['str'] . " here!" . $service['highlight']['tip'] . "</label>
 						<textarea id=\"pasteEnter\" name=\"pasteEnter\" onkeydown=\"return catchTab(event)\" " . $event . "=\"return checkIfURL(this);\"></textarea></div>
 						<div id=\"foundURL\" style=\"display: none;\">URL has been detected...</div>
 						<div class=\"spacer\">&nbsp;</div>
@@ -3579,7 +3530,7 @@ if($requri && $requri != "install" && substr($requri, -1) != "!")
 									echo "<input type=\"hidden\" name=\"lifespan\" value=\"0\" />";
 
 						if($CONFIG['pb_private'])
-							echo "<div id=\"privacyContainer\"><label for=\"privacy\">Paste Visibility</label> <select name=\"privacy\" id=\"privacy\"><option value=\"0\">Public</option> <option value=\"1\">Private</option></select></div>";
+							echo "<div id=\"privacyContainer\"><label for=\"privacy\">Paste Visibility</label> <select name=\"privacy\" id=\"privacy\"><option value=\"1\">Private</option> <option value=\"0\">Public</option></select></div>";
 
 						if($CONFIG['pb_encrypt_pastes'])
 							echo "<div id=\"encryptContainer\"><label for=\"encryption\">Password Protect</label> <input type=\"password\" name=\"encryption\" id=\"encryption\" /></div>";
@@ -3606,7 +3557,6 @@ if($requri && $requri != "install" && substr($requri, -1) != "!")
 ?>
 	<div class="spacer">&nbsp;</div>
 	<div class="spacer">&nbsp;</div>
-	<div id="copyrightInfo">Written by <a href="http://xan-manning.co.uk/">Xan Manning</a>, 2010.</div>
 	</div>
 <?php if($bin->_clipboard() && $requri && $requri != "install")
 	echo "<div><span id=\"_clipboard_replace\">YOU NEED FLASH!</span> &nbsp; <span id=\"_clipboardURI_replace\">&nbsp;</span></div>";
