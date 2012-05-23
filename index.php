@@ -24,10 +24,7 @@ define('ISINCLUDED', 1);
 
 require("config.php");
 
-if(strtolower(@$_SERVER['HTTPS']) == "on")
-	$CONFIG['pb_protocol'] = "https";
-else
-	$CONFIG['pb_protocol'] = "http";
+$CONFIG['pb_protocol'] = "http";
 
 /* Start Pastebin */
 if(substr(phpversion(), 0, 3) < 5.2)
@@ -490,7 +487,6 @@ class db
 						'URL'		=>	$data['URL'],
 						'Video'		=>	$this->cleanHTML($data['Video']),
 						'Lifespan'	=>	$data['Lifespan'],
-						'IP'		=>	base64_encode($data['IP']),
 						'Data'		=>	$this->cleanHTML($data['Content']),
 						'GeSHI'		=>	$this->cleanHTML($data['GeSHI']),
 						'Style'		=>	$this->cleanHTML($data['Style'])
@@ -785,28 +781,6 @@ class bin
 
 			}
 
-		public function jQuery()
-			{
-				if($this->db->config['pb_jQuery'] == FALSE)
-					return false;
-
-				if(preg_match("/^(http|https|ftp):\/\/(.*?)/", $this->db->config['pb_jQuery']))
-					{
-						$headers = @get_headers($this->db->config['pb_jQuery']);
-						if (preg_match("|200|", $headers[0]))
-							return true;
-						else
-							return false;
-					} else
-						{
-							if(file_exists($this->db->config['pb_jQuery']))
-								return true;
-							else
-								return false;
-						}
-				
-
-			}
 
 		public function highlight()
 			{
@@ -822,19 +796,6 @@ class bin
 
 			}
 
-		public function adaptor()
-			{
-				if($this->db->config['pb_api_adaptor'] == FALSE)
-					return false;
-
-				
-				if(file_exists($this->db->config['pb_api_adaptor']))
-					return true;
-				else
-					return false;
-				
-
-			}
 
 		public function highlightPath()
 			{
@@ -923,77 +884,6 @@ class bin
 				
 			}
 
-		public function _clipboard()
-			{
-				if($this->db->config['pb_clipboard'] == FALSE)
-					return false;
-
-				$this->db->config['cbdir'] = dirname($this->db->config['pb_clipboard']);
-				$cbdir = $this->db->config['cbdir'];
-
-				if(strlen($cbdir) < 2)
-					$cbdir = ".";
-
-				if(preg_match("/^(http|https|ftp):\/\/(.*?)/", $this->db->config['pb_clipboard']))
-					{
-						$headers = @get_headers($this->db->config['pb_clipboard']);
-						if (preg_match("|200|", $headers[0])) {
-							$jsHeaders = @get_headers($cbdir . "/swfobject.js");
-							if(preg_match("|200|", $jsHeaders[0]))
-								return true;
-							else
-								return false; }
-						else
-							return false;
-					} else
-						{
-							if(file_exists($this->db->config['pb_clipboard']) && file_exists($cbdir . "/swfobject.js"))
-								return true;
-							else
-								return false;
-						}
-				
-
-			}
-
-		public function flowplayer($javascript = FALSE)
-			{
-				if($this->db->config['pb_flowplayer'] == FALSE)
-					return false;
-					
-				$jsMin = str_ireplace("flowplayer.swf", "flowplayer.min.js", $this->db->config['pb_flowplayer']);
-					
-				if(preg_match("/^(http|https|ftp):\/\/(.*?)/", $this->db->config['pb_flowplayer']))
-					{
-						$headers = @get_headers($this->db->config['pb_flowplayer']);
-						$jsHeaders = @get_headers($jsMin);
-						if (preg_match("|200|", $headers[0]) && preg_match("|200|", $jsHeaders[0]))
-							{
-								if($javascript)
-									return $jsMin;
-								else
-									return $this->db->config['pb_flowplayer'];
-							}
-						else
-							return false;
-					} else
-						{
-							if(file_exists($this->db->config['pb_flowplayer']) && file_exists($jsMin))
-								{
-									if($javascript)
-										return $jsMin;
-									else
-										return $this->db->config['pb_flowplayer'];
-								}
-							else
-								return false;
-						}
-				
-
-			}
-
-		public function generateRandomString($length)
-			{
 				$checkArray = array('install', 'api', 'defaults', 'recent', 'raw', 'download', 'moo', 'pastes', 'subdomain', 'forbidden', 0);
 
 				$characters = "0123456789abcdefghijklmnopqrstuvwxyz";  
@@ -1082,147 +972,6 @@ class bin
 								$output = $now . "/" . $file . "?" . $id;
 						break;
 					}
-
-				return $output;
-			}
-
-		public function setSubdomain($force = FALSE)
-			{
-				if(!$this->db->config['pb_subdomains'])
-					return NULL;
-
-				if($force)
-					return $this->db->config['txt_config']['db_folder'] = $this->db->config['txt_config']['db_folder'] . "/subdomain/" . $force;
-
-				if(!file_exists('INSTALL_LOCK'))
-					return NULL;
-
-				$domain = strtolower(str_replace("www.", "", $_SERVER['SERVER_NAME']));
-				$explode = explode(".", $domain, 2);
-				$sub = $explode[0];
-
-				switch($this->db->dbt)
-					{
-						case "mysql":
-							$this->db->connect();
-							$subdomain_list = array();
-							$query = "SELECT * FROM " . $this->db->config['mysql_connection_config']['db_table'] . " WHERE ID = 'forbidden' LIMIT 1";
-							$result_temp = mysql_query($query);
-								while($row = mysql_fetch_assoc($result_temp))
-									 $subdomain_list['forbidden'] = unserialize($row['Data']);
-
-							$query = "SELECT * FROM " . $this->db->config['mysql_connection_config']['db_table'] . " WHERE ID = 'subdomain' AND Subdomain = '" . $sub . "'";
-							$result_temp = mysql_query($query);
-							if(mysql_num_rows($result_temp) > 0)
-								$in_list = TRUE;
-							else
-								$in_list = FALSE;
-
-							mysql_free_result($result_temp);
-						break;
-						case "txt":
-							$subdomainsFile = $this->db->config['txt_config']['db_folder'] . "/" . $this->db->config['txt_config']['db_index'] . "_SUBDOMAINS";
-							$subdomain_list = $this->db->deserializer($this->db->read($subdomainsFile));
-							$in_list = in_array($sub, $subdomain_list);
-						break;
-					}
-
-				if(!in_array($sub, $subdomain_list['forbidden']) && $in_list)
-					{
-						$this->db->config['txt_config']['db_folder'] = $this->db->config['txt_config']['db_folder'] . "/subdomain/" . $sub;
-						return $sub;
-					}
-				else
-					return NULL;				
-			}
-
-		public function makeSubdomain($subdomain)
-			{
-				if(!file_exists('INSTALL_LOCK'))
-					return NULL;
-
-				if(!$this->db->config['pb_subdomains'])
-					return FALSE;
-
-				$subdomain = $this->checkSubdomain(strtolower($subdomain));
-
-				switch($this->db->dbt)
-					{
-						case "mysql":
-							$this->db->connect();
-							$subdomain_list = array();
-							$query = "SELECT * FROM " . $this->db->config['mysql_connection_config']['db_table'] . " WHERE ID = 'forbidden' LIMIT 1";
-							$result_temp = mysql_query($query);
-								while($row = mysql_fetch_assoc($result_temp))
-									 $subdomain_list['forbidden'] = unserialize($row['Data']);
-
-							$query = "SELECT * FROM " . $this->db->config['mysql_connection_config']['db_table'] . " WHERE ID = 'subdomain' AND Subdomain = '" . $subdomain . "'";
-							$result_temp = mysql_query($query);
-							if(mysql_num_rows($result_temp) > 0)
-								$in_list = TRUE;
-							else
-								$in_list = FALSE;
-
-							mysql_free_result($result_temp);
-						break;
-						case "txt":
-							$subdomainsFile = $this->db->config['txt_config']['db_folder'] . "/" . $this->db->config['txt_config']['db_index'] . "_SUBDOMAINS";
-							$subdomain_list = $this->db->deserializer($this->db->read($subdomainsFile));
-							$in_list = in_array($subdomain, $subdomain_list);
-						break;
-					}
-
-				if(!in_array($subdomain, $subdomain_list['forbidden']) && !$in_list)
-					{
-						switch($this->db->dbt)
-							{
-								case "mysql":
-									$domain = array('ID' => "subdomain", 'Subdomain' => $subdomain, 'Image' => 1, 'Author' => "System", 'Protect' => 1, 'Lifespan' => 0, 'Content' => "Subdomain marker");
-									$this->db->insertPaste($domain['ID'], $domain, TRUE);
-									mkdir($this->db->config['txt_config']['db_folder'] . "/subdomain/" . $subdomain);
-									chmod($this->db->config['txt_config']['db_folder'] . "/subdomain/" . $subdomain, $this->db->config['txt_config']['dir_mode']);
-									mkdir($this->db->config['txt_config']['db_folder'] . "/subdomain/" . $subdomain . "/" . $this->db->config['txt_config']['db_images']);
-									chmod($this->db->config['txt_config']['db_folder'] . "/subdomain/" . $subdomain . "/" . $this->db->config['txt_config']['db_images'], $this->db->config['txt_config']['dir_mode']);
-									$this->db->write("FORBIDDEN", $this->db->config['txt_config']['db_folder'] . "/subdomain/" . $subdomain . "/index.html");
-									chmod($this->db->config['txt_config']['db_folder'] . "/subdomain/" . $subdomain . "/index.html", $this->db->config['txt_config']['dir_mode']);
-									$this->db->write("FORIDDEN", $this->db->config['txt_config']['db_folder'] . "/subdomain/" . $subdomain . "/" . $this->db->config['txt_config']['db_images'] . "/index.html");
-									chmod($this->db->config['txt_config']['db_folder'] . "/subdomain/" . $subdomain . "/" . $this->db->config['txt_config']['db_images'] . "/index.html", $this->db->config['txt_config']['file_mode']);
-									return $subdomain;
-								break;
-								case "txt":
-									$subdomain_list[] = $subdomain;
-									$subdomain_list = $this->db->serializer($subdomain_list);
-									$this->db->write($subdomain_list, $subdomainsFile);
-									$subdomain = $subdomain;
-									mkdir($this->db->config['txt_config']['db_folder'] . "/subdomain/" . $subdomain);
-									chmod($this->db->config['txt_config']['db_folder'] . "/subdomain/" . $subdomain, $this->db->config['txt_config']['dir_mode']);
-									mkdir($this->db->config['txt_config']['db_folder'] . "/subdomain/" . $subdomain . "/" . $this->db->config['txt_config']['db_images']);
-									chmod($this->db->config['txt_config']['db_folder'] . "/subdomain/" . $subdomain . "/" . $this->db->config['txt_config']['db_images'], $this->db->config['txt_config']['dir_mode']);
-									$this->db->write("FORBIDDEN", $this->db->config['txt_config']['db_folder'] . "/subdomain/" . $subdomain . "/index.html");
-									chmod($this->db->config['txt_config']['db_folder'] . "/subdomain/" . $subdomain . "/index.html", $this->db->config['txt_config']['dir_mode']);
-									$this->db->write($this->db->serializer(array()), $this->db->config['txt_config']['db_folder'] . "/subdomain/" . $subdomain . "/" . $this->db->config['txt_config']['db_index']);
-									chmod($this->db->config['txt_config']['db_folder'] . "/subdomain/" . $subdomain . "/" . $this->db->config['txt_config']['db_index'], $this->db->config['txt_config']['file_mode']);
-									$this->db->write("FORIDDEN", $this->db->config['txt_config']['db_folder'] . "/subdomain/" . $subdomain . "/" . $this->db->config['txt_config']['db_images'] . "/index.html");
-									chmod($this->db->config['txt_config']['db_folder'] . "/subdomain/" . $subdomain . "/" . $this->db->config['txt_config']['db_images'] . "/index.html", $this->db->config['txt_config']['file_mode']);
-									return $subdomain;
-								break;
-							}
-					}
-				else
-					return FALSE;				
-			}
-
-		public function generateForbiddenSubdomains($mysql = FALSE)
-			{
-				$domain = str_replace("www.", "", $_SERVER['SERVER_NAME']);
-				$explode = explode(".", $domain, 2);
-				$domain = $explode[0];
-				$output = array(
-					'forbidden' => array("www", $domain, "admin", "owner", "api")
-				);
-
-				if($mysql)
-					$output = array("www", $domain, "admin", "owner", "api");
 
 				return $output;
 			}
@@ -1410,88 +1159,6 @@ class bin
 				return $output;
 			}
 
-		public function generateVideoEmbedCode($url)
-			{
-				$type = array();
-				$type['youtube'] = stristr($url, "youtube.com");
-				$type['vimeo'] = stristr($url, "vimeo.com");
-				$type['dailymotion'] = stristr($url, "dailymotion.com");
-				$type['flv'] = $this->stristr_array($url, array('.flv', '.f4v', 'mp4', 'm4v', 'm4p'));
-				$is = NULL;
-
-				if(!$this->db->config['pb_video'])
-					return false;
-
-				if($type['youtube']) {
-					$output = "<object width=\"" . $this->db->config['pb_video_size']['width'] . "\" height=\"" . $this->db->config['pb_video_size']['height'] . "\"><param name=\"movie\" value=\"http://youtube.com/v/{VIDEO}\"></param><embed src=\"http://youtube.com/v/{VIDEO}\" type=\"application/x-shockwave-flash\" width=\"" . $this->db->config['pb_video_size']['width'] . "\" height=\"" . $this->db->config['pb_video_size']['height'] . "\"></embed></object>";
-					$is = "youtube";
-				}
-				if($type['vimeo']) {
-					$output = "<object width=\"" . $this->db->config['pb_video_size']['width'] . "\" height=\"" . $this->db->config['pb_video_size']['height'] . "\"><param name=\"allowfullscreen\" value=\"true\" /><param name=\"allowscriptaccess\" value=\"always\" /><param name=\"movie\" value=\"http://vimeo.com/moogaloop.swf?clip_id={VIDEO}&amp;server=vimeo.com&amp;show_title=1&amp;show_byline=1&amp;show_portrait=0&amp;color=&amp;fullscreen=1\" /><embed src=\"http://vimeo.com/moogaloop.swf?clip_id={VIDEO}&amp;server=vimeo.com&amp;show_title=1&amp;show_byline=1&amp;show_portrait=0&amp;color=&amp;fullscreen=1\" type=\"application/x-shockwave-flash\" allowfullscreen=\"true\" allowscriptaccess=\"always\" width=\"" . $this->db->config['pb_video_size']['width'] . "\" height=\"" . $this->db->config['pb_video_size']['height'] . "\"></embed></object>";
-					$is = "vimeo";
-				}
-				if($type['dailymotion']) {
-					$output = "<object width=\"" . $this->db->config['pb_video_size']['width'] . "\" height=\"" . $this->db->config['pb_video_size']['height'] . "\"><param name=\"movie\" value=\"http://www.dailymotion.com/swf/{VIDEO}\" /><param name=\"allowFullScreen\" value=\"true\" /><param name=\"allowScriptAccess\" value=\"always\" /><embed src=\"http://www.dailymotion.com/swf/{VIDEO}\" type=\"application/x-shockwave-flash\" width=\"" . $this->db->config['pb_video_size']['width'] . "\" height=\"" . $this->db->config['pb_video_size']['height'] . "\" allowFullScreen=\"true\" allowScriptAccess=\"always\"></embed></object>";
-					$is = "dailymotion";
-				}
-				if($this->flowplayer())
-					{
-
-						if($type['flv']){
-							$output = "	<a 
-											href=\"{VIDEO}\"
-											style=\"display: block; width: " . $this->db->config['pb_video_size']['width'] . "px; height: " . $this->db->config['pb_video_size']['height'] . "px;\"
-											id=\"player\"
-										>
-										</a>
-										
-										<script type=\"text/javascript\">
-											flowplayer(\"player\", \"" . $this->flowplayer() . "\");
-										</script>";
-							$is = "flv";
-						}
-					}
-
-				if($is == NULL)
-					return false;
-					
-						switch ($is)
-							{
-								case "youtube":
-									$vidID = str_replace("http://www.youtube.com/watch?v=", "", $url);
-									$vidID = str_replace("http://youtube.com/watch?v=", "", $vidID);
-									if(stristr($vidID, "&")) {
-										$explode = explode("&", $vidID);
-										$vidID = $explode[0];
-									}
-								break;
-								case "vimeo":
-									$vidID = str_replace("http://vimeo.com/", "", $url);
-									$vidID = str_replace("http://www.vimeo.com/", "", $vidID);
-									if(stristr($vidID, "#")) {
-										$explode = explode("#", $vidID, 2);
-										$vidID = $explode[1];
-									}
-								break;
-								case "dailymotion":
-									$vidID = str_replace("http://dailymotion.com/", "", $url);
-									$vidID = str_replace("http://www.dailymotion.com/", "", $vidID);
-									if(stristr($vidID, "_")) {
-										$explode = explode("_", $vidID);
-										$vidID = $explode[0];
-									}
-									
-								break;
-								case "flv":
-									$vidID = $url;
-								break;
-							}
-		
-				$output = str_replace("{VIDEO}", $vidID, $output);
-				return $output;
-			}
-	}
-
 $requri = $_SERVER['REQUEST_URI'];
 $scrnam = $_SERVER['SCRIPT_NAME'];
 $reqhash = NULL;
@@ -1521,24 +1188,6 @@ $bin = new bin($db);
 $CONFIG['pb_pass'] = $bin->hasher($CONFIG['pb_pass'], $CONFIG['pb_salts']);
 $db->config['pb_pass'] = $CONFIG['pb_pass'];
 $bin->db->config['pb_pass'] = $CONFIG['pb_pass'];
-
-if(file_exists('./INSTALL_LOCK') && @$_POST['subdomain'] && $CONFIG['pb_subdomains'])
-	{
-		$seed = $bin->makeSubdomain(@$_POST['subdomain']);
-		if($CONFIG['pb_https_class_1'])
-			$CONFIG['pb_protocol_fix'] = "http";
-		else
-			$CONFIG['pb_protocol_fix'] = $CONFIG['pb_protocol'];
-
-		if($seed)
-			header("Location: " . str_replace($CONFIG['pb_protocol'] . "://", $CONFIG['pb_protocol_fix'] . "://" . $seed . ".", $bin->linker()));
-		else
-			$error_subdomain = TRUE;
-	}
-
-$CONFIG['subdomain'] = $bin->setSubdomain();
-$db->config['subdomain'] = $CONFIG['subdomain'];
-$bin->db->config['subdomain'] = $CONFIG['subdomain'];
 
 $ckey = $bin->cookieName();
 
