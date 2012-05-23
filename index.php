@@ -1241,85 +1241,6 @@ if($requri == "pastes")
 if($requri == "defaults")
 	{
 
-		if($reqhash == "moo")
-			{
-				$ee_image = 	"\x89\x50\x4e\x47\x0d\x0a\x1a\x0a\x00\x00\x00\x0d\x49\x48\x44\x52" .
-						"\x00\x00\x00\x10\x00\x00\x00\x12\x08\x06\x00\x00\x00\x52\x3b\x5e" .
-						"\x6a\x00\x00\x00\x01\x73\x52\x47\x42\x00\xae\xce\x1c\xe9\x00\x00" .
-						"\x00\x06\x62\x4b\x47\x44\x00\xff\x00\xff\x00\xff\xa0\xbd\xa7\x93" .
-						"\x00\x00\x00\x09\x70\x48\x59\x73\x00\x00\x20\x88\x00\x00\x20\x88" .
-						"\x01\x1c\x2c\xed\x2e\x00\x00\x00\x07\x74\x49\x4d\x45\x07\xdb\x04" .
-						"\x1c\x12\x1f\x15\xe4\x47\x95\xc0\x00\x00\x03\xc3\x49\x44\x41\x54" .
-						"\x38\xcb\x4d\x54\x4d\x48\x63\x67\x14\x3d\x9f\x2f\x2f\x26\xf1\x2f" .
-						"\xf1\x07\x5b\x62\xd3\xf8\x43\x8c\x71\x30\x15\xac\x35\x45\xa1\xd8" .
-						"\xa6\x32\x0a\x96\x41\x44\x2c\x15\x05\xa9\xff\x53\x28\x83\x82\xab" .
-						"\xa2\xbb\x81\x52\x5d\x29\xf8\x0b\x53\x43\xa4\x31\x2d\x6a\x22\x0a" .
-						"\x62\x90\x52\x44\x5c\x59\x29\x28\xb6\x82\x4e\x63\x47\x7d\x36\x9a" .
-						"\x4c\x92\xa7\xc9\x7b\xb7\xab\x58\xcf\xea\x2e\xce\xb9\xdc\x7b\x0e" .
-						"\xf7\x02\xff\xa3\x28\x2f\x2f\x6f\x1d\xc0\x27\xfd\xfd\xfd\xe3\x8b" .
-						"\x8b\x8b\x7f\x79\x3c\x9e\xfb\x8d\x8d\x8d\xd8\xe8\xe8\xe8\x59\x51" .
-						"\x51\xd1\x1c\x80\x4f\xf5\x7a\xbd\x17\x40\xd9\x83\xaa\xaf\xaf\xef" .
-						"\xa1\x36\x18\x0c\x54\x52\x52\x42\x8f\x21\x49\x12\x39\x9d\x4e\xb2" .
-						"\xdb\xed\x64\x36\x9b\xc9\x68\x34\x52\x82\x4f\x44\x50\x4c\x4c\x4c" .
-						"\xa0\xa2\xa2\x62\xb0\xb7\xb7\xf7\xa5\x46\xa3\x81\x5a\xad\x26\x00" .
-						"\x2c\xc1\x69\x69\x69\x61\x91\x48\x04\xa9\xa9\xa9\xa4\x56\xab\x31" .
-						"\x3c\x3c\xcc\x00\xd0\xd2\xd2\xd2\x0f\x8c\xb1\x17\xec\xe9\xd3\xa7" .
-						"\xbf\xae\xad\xad\x55\xdf\xdf\xdf\x43\xa9\x54\x12\x00\xb8\x5c\x2e" .
-						"\x26\x8a\x22\xea\xeb\xeb\x69\x6c\x6c\x8c\x1d\x1e\x1e\x02\x00\x5d" .
-						"\x5d\x5d\xb1\xed\xed\x6d\x8a\xc5\x62\xe0\x79\x9e\x75\x77\x77\xbf" .
-						"\x46\x56\x56\xd6\x3b\x00\xbe\x1b\x19\x19\x21\x22\x22\xb7\xdb\x2d" .
-						"\xdf\xdd\xdd\x11\x11\x91\xc3\xe1\x90\x27\x27\x27\x13\xdb\xc8\x53" .
-						"\x53\x53\x44\x44\xf2\xcc\xcc\x0c\x01\x98\xe2\x79\xfe\xbd\xa4\xeb" .
-						"\xeb\xeb\x37\x0b\x0b\x0b\xcf\x2d\x16\x0b\x00\x50\x28\x14\x82\x52" .
-						"\xa9\x24\xbd\x5e\x4f\x99\x99\x99\x88\x44\x22\x64\xb5\x5a\x09\x00" .
-						"\x22\x91\x08\x01\x40\x61\x61\x21\x5a\x5b\x5b\xbf\x8e\xc5\x62\xaf" .
-						"\x39\x9d\x4e\xf7\xa5\xc3\xe1\xf8\x6a\x77\x77\x97\xca\xcb\xcb\x59" .
-						"\x41\x41\x01\x66\x66\x66\x58\x57\x57\x17\xe3\x38\x0e\x55\x55\x55" .
-						"\xcc\x6c\x36\xb3\xbd\xbd\x3d\xd4\xd5\xd5\x31\xad\x56\x0b\x9f\xcf" .
-						"\x87\x93\x93\x13\x26\x08\x02\x43\x6d\x6d\xed\x4a\x2c\x16\xa3\xe9" .
-						"\xe9\xe9\x87\x51\x1f\x85\x20\x3f\x4a\x43\x26\x22\x8a\x46\xa3\x72" .
-						"\x5b\x5b\x1b\x11\x11\x4d\x4e\x4e\xfe\xa1\x08\x04\x02\x1f\x0c\x0e" .
-						"\x0e\xa2\xa3\xa3\x03\x5e\xaf\x17\x0d\x0d\x0d\x0c\x00\x5e\xcd\xce" .
-						"\x23\x25\x2c\xb1\xa4\x24\x0e\xff\xc4\x42\xe8\xfb\xf6\x1b\x16\x8f" .
-						"\xc7\xe1\x72\xb9\x98\xd9\x6c\x06\x00\xe2\x38\xce\xa2\xe0\x79\x3e" .
-						"\x5d\x10\x04\x58\xad\x56\x38\x9d\x4e\xa4\xa7\xa5\x21\x74\x1b\x44" .
-						"\xcd\xbb\xc5\x98\x70\x2f\xe0\xc3\x27\x56\x54\x1b\x4a\x30\xfe\xf2" .
-						"\x7b\x14\x97\x95\x62\x6b\x6b\x0b\xf3\xf3\xf3\x00\xc0\xf6\xf6\xf6" .
-						"\x88\x33\x18\x0c\x3d\xe1\x70\x58\xab\xd5\x6a\x31\x30\x30\x40\x73" .
-						"\x73\x73\xf8\x65\xd1\x85\xf6\x2f\x9a\x99\x2e\x23\x83\x32\x33\xb4" .
-						"\x20\x99\xe0\x70\xff\x84\xab\x60\x00\xf5\xf5\xf5\x70\x38\x1c\xcc" .
-						"\xed\x76\xd3\xfa\xfa\x3a\x63\x3d\x3d\x3d\x3f\x9b\x4c\xa6\x67\x5e" .
-						"\xaf\x17\x9b\x9b\x9b\xf0\xfb\xfd\x54\x5d\x53\xc3\xd2\x93\xd5\xb0" .
-						"\x7f\x54\x43\xc9\xca\x64\x76\xfa\xef\x1b\x54\x54\xdb\xa8\xb3\xb3" .
-						"\x93\xcd\xce\xce\x92\xcf\xe7\x63\x82\x20\xe0\xe2\xe2\x62\x1f\x00" .
-						"\x9e\xf9\x7c\x3e\x0a\x06\x83\x09\xc3\xe4\x9b\x9b\x1b\x1a\x1a\x1a" .
-						"\x22\x4b\x69\xa9\x6c\x79\x52\x4a\xc7\xc7\x7f\x52\x34\x1a\x95\x89" .
-						"\x88\x2e\x2f\x2f\xe5\xb2\xb2\x32\xb9\xb2\xb2\x92\x74\x3a\xdd\x30" .
-						"\x07\xe0\x90\x88\x9e\x67\x67\x67\x6b\xf4\x7a\x3d\x29\x14\x0a\xa8" .
-						"\x54\x2a\xd8\xed\x76\x76\x76\x7a\x8a\xb7\xa1\xb7\x38\x38\xf8\x1d" .
-						"\x4d\x4d\x4d\x00\x80\x83\x83\x03\xac\xae\xae\xb2\x70\x38\x0c\xbf" .
-						"\xdf\xff\x19\x07\x00\xfb\xfb\xfb\x3f\x9a\x4c\xa6\x17\xd1\x68\x94" .
-						"\x05\x83\x41\xa4\xa4\xa4\x40\xa5\x52\x31\x9b\xcd\x86\xe3\xe3\x63" .
-						"\xb4\xb7\xb7\xe3\xf6\xf6\x16\x3b\x3b\x3b\x00\x00\x8f\xc7\xc3\x8e" .
-						"\x8e\x8e\x3e\x06\xf0\x37\x94\x4a\x65\xe2\xb8\x4c\x2d\x2d\x2d\x54" .
-						"\x5c\x5c\x4c\xb9\xb9\xb9\x64\xb3\xd9\x68\x79\x79\x59\xde\xd8\xd8" .
-						"\xa0\xe6\xe6\x66\x32\x1a\x8d\x72\x7e\x7e\x3e\x35\x36\x36\x92\x46" .
-						"\xa3\xf9\x1c\x00\x14\x0a\x05\x38\x49\x92\x12\x0d\xee\x25\x49\x1a" .
-						"\x16\x45\x11\x39\x39\x39\x88\xc7\xe3\x74\x7e\x7e\xce\x34\x1a\x0d" .
-						"\x56\x56\x56\x48\xa7\xd3\x31\x41\x10\xc0\x18\xc3\xd9\xd9\xd9\x2b" .
-						"\x00\x27\xb2\x2c\x23\xe9\xd1\x43\x79\x9f\xe3\x38\x04\x02\x01\x92" .
-						"\x65\x19\x92\x24\xb1\xad\xad\xad\xdf\x46\x47\x47\xc7\x79\x9e\x67" .
-						"\x92\x24\x91\x28\x8a\x10\x45\x11\x69\x69\x69\x85\x09\xd1\x7f\x88" .
-						"\xc0\x07\x0e\x24\x81\x53\x98\x00\x00\x00\x00\x49\x45\x4e\x44\xae" .
-						"\x42\x60\x82";
-
-						header("Pragma: public"); // required
-						header("Cache-Control: private", false); // required for certain browsers
-						header("Content-Type: image/png");
-						echo $ee_image;
-						die();
-			}
-
 		if(strstr($reqhash, "callback"))
 			$callback = array(str_replace("callback=", null, $reqhash) . '(', ')');
 
@@ -1338,16 +1259,6 @@ if($requri == "defaults")
 		else
 			$defaults['passwords'] = 0;
 
-		if($bin->adaptor() && $CONFIG['pb_api'])
-			$defaults['api_adaptor'] = '"' . $bin->linker() . $CONFIG['pb_api_adaptor'] . '"';
-		else
-			$defaults['api_adaptor'] = 0;
-
-		if($bin->_clipboard())
-			$defaults['clipboard'] = '"' . $CONFIG['pb_clipboard'] . '"';
-		else
-			$defaults['clipboard'] = 0;
-
 		if($CONFIG['pb_images'])
 			$defaults['images'] = $CONFIG['pb_image_maxsize'];
 		else
@@ -1363,11 +1274,6 @@ if($requri == "defaults")
 		else
 			$defaults['url'] = 0;
 
-		if($bin->jQuery())
-			$defaults['ajax'] = 1;
-		else
-			$defaults['ajax'] = 0;
-
 		if($bin->highlight())
 			$defaults['syntax'] = 1;
 		else
@@ -1377,16 +1283,6 @@ if($requri == "defaults")
 			$defaults['highlight'] = '"' . $bin->lineHighlight() . '"';
 		else
 			$defaults['highlight'] = 0; 
-
-		if($CONFIG['pb_video'])
-			$defaults['video'] = 1;
-		else
-			$defaults['video'] = 0;
-
-		if($bin->flowplayer())
-			$defaults['flv_video'] = 1;
-		else
-			$defaults['flv_video'] = 0;
 
 		if($CONFIG['pb_private'])
 			$defaults['privacy'] = 1;
@@ -1435,17 +1331,12 @@ if($requri == "defaults")
 					"editing": 		' . $defaults['editing'] . ',
 					"passwords":		' . $defaults['passwords'] . ',
 					"api":			' . $defaults['api'] . ',
-					"api_adaptor":		' . $defaults['api_adaptor'] . ',
-					"clipboard":		' . $defaults['clipboard'] . ',
 					"images":		' . $defaults['images'] . ',
 					"image_extensions":	' . $defaults['ex_ext'] . ',
 					"image_download":	' . $defaults['image_download'] . ',
 					"url_redirection":	' . $defaults['url']. ',
-					"jQuery":		' . $defaults['ajax'] . ',
 					"syntax":		' . $defaults['syntax'] . ',
 					"line_highlight":	' . $defaults['highlight'] . ',
-					"video":		' . $defaults['video'] . ',
-					"flv_video":		' . $defaults['flv_video'] . ',
 					"url_format":		' . $defaults['ex_url'] . ',
 					"lifespan":		' . $defaults['lifespan'] . ',
 					"privacy":		' . $defaults['privacy'] . '
@@ -1558,11 +1449,6 @@ if($requri == "api")
 				if(@$_POST['pasteEnter'] == NULL && strlen(@$_FILES['pasteImage']['name']) > 4 && $CONFIG['pb_images'])
 					$_POST['pasteEnter'] = "Image file (" . $_FILES['pasteImage']['name'] . ") uploaded...";
 
-				$videoSRC = $bin->generateVideoEmbedCode($postedURL);
-
-				if($videoSRC || !$CONFIG['pb_url'])
-					$exclam = NULL;
-
 				if(!$CONFIG['pb_url'])
 					$postedURL = NULL;
 
@@ -1583,11 +1469,9 @@ if($requri == "api")
 					'ID' => $pasteID,
 					'Subdomain' => $bin->db->config['subdomain'],
 					'Author' => $bin->checkAuthor(@$_POST['author']),
-					'IP' => $_SERVER['REMOTE_ADDR'],
 					'Image' => $imageUpload,
 					'ImageTxt' => "Image file (" . @$_FILES['pasteImage']['name'] . ") uploaded...",
 					'URL' => $postedURL,
-					'Video' => $videoSRC,
 					'Lifespan' => $_POST['lifespan'],
 					'Protect' => $_POST['privacy'],
 					'Encrypted' => $encryption,
@@ -1689,7 +1573,6 @@ if($requri == "api")
 										"image":		0,
 										"image_text":		0,
 										"link":			0,
-										"video":		0,
 										"lifespan":		0,
 										"data":			"Encrypted pastes cannot be sent over API!",
 										"data_html":		"' . $db->dirtyHTML("<!-- Encrypted pastes cannot be sent over API!  -->") . '",
@@ -1719,7 +1602,6 @@ if($requri == "api")
 									"image":		"' . $pasted['Image_path'] . '",
 									"image_text":		"' . $pasted['ImageTxt'] . '",
 									"link":			"' . $pasted['URL'] . '",
-									"video":		"' . $pasted['Video'] . '",
 									"lifespan":		' . $pasted['Lifespan']. ',
 									"data":			"' . urlencode($db->dirtyHTML($pasted['Data'])) . '",
 									"geshi":		"' . urlencode($pasted['GeSHI']) . '",
@@ -1743,7 +1625,6 @@ if($requri == "api")
 									"image":		0,
 									"image_text":		0,
 									"link":			0,
-									"video":		0,
 									"lifespan":		0,
 									"data":			"This paste has either expired or doesn\'t exist!",
 									"data_html":		"' . $db->dirtyHTML("<!-- This paste has either expired or doesn't exist!  -->") . '",
@@ -1810,7 +1691,7 @@ if($requri != "install")
 		<title><?php echo $bin->setTitle($CONFIG['pb_name']); ?> &raquo; <?php echo $bin->titleID($requri); ?></title>
 		<link rel="icon" type="image/vnd.microsoft.icon" href="favicon.ico" />
 		<link rel="icon" type="image/png" href="favicon.png" />
-		<meta name="generator" content="Knoxious Pastebin">
+		<meta name="generator" content="Black Open Pastebin">
 		<meta name="Description" content="A quick, simple, multi-purpose pastebin." />	
 		<meta name="Keywords" content="simple quick pastebin image hosting video linking embedding url shortening syntax highlighting" />
 		<meta name="Robots" content="<?php echo $bin->robotPrivacy($requri); ?>" /> 
@@ -1922,535 +1803,8 @@ if($requri != "install")
 				.lineHighlight { background-color: #FFFFAA; font-weight: bolder; color: #000000; }
 			}
 		</style>
-		<?php
-			}
-
-			/* begin JS */
-			
-			if($bin->flowplayer())
-				echo "<script src=\"" . $bin->flowplayer(TRUE) . "\" type=\"text/javascript\"></script>";
-
-			$_commonJS = "/* AJAXIAN */
-var tab = \"    \";
-       
-function catchTab(evt) {
-    var t = evt.target;
-    var ss = t.selectionStart;
-    var se = t.selectionEnd;
- 
-    if (evt.keyCode == 9) {
-        evt.preventDefault();
-               
-        if (ss != se && t.value.slice(ss,se).indexOf(\"\\n\") != -1) {
-            var pre = t.value.slice(0,ss);
-            var sel = t.value.slice(ss,se).replace(/\\n/g,\"\\n\"+tab);
-            var post = t.value.slice(se,t.value.length);
-            t.value = pre.concat(tab).concat(sel).concat(post);
-                   
-            t.selectionStart = ss + tab.length;
-            t.selectionEnd = se + tab.length;
-        }
-               
-        else {
-            t.value = t.value.slice(0,ss).concat(tab).concat(t.value.slice(ss,t.value.length));
-            if (ss == se) {
-                t.selectionStart = t.selectionEnd = ss + tab.length;
-            }
-            else {
-                t.selectionStart = ss + tab.length;
-                t.selectionEnd = se + tab.length;
-            }
-        }
-    }
-           
-   else if (evt.keyCode==8 && t.value.slice(ss - 4,ss) == tab) {
-        evt.preventDefault();
-               
-        t.value = t.value.slice(0,ss - 4).concat(t.value.slice(ss,t.value.length));
-        t.selectionStart = t.selectionEnd = ss - tab.length;
-    }
-           
-    else if (evt.keyCode==46 && t.value.slice(se,se + 4) == tab) {
-        evt.preventDefault();
-             
-        t.value = t.value.slice(0,ss).concat(t.value.slice(ss + 4,t.value.length));
-        t.selectionStart = t.selectionEnd = ss;
-    }
-
-    else if (evt.keyCode == 37 && t.value.slice(ss - 4,ss) == tab) {
-        evt.preventDefault();
-        t.selectionStart = t.selectionEnd = ss - 4;
-    }
-    else if (evt.keyCode == 39 && t.value.slice(ss,ss + 4) == tab) {
-        evt.preventDefault();
-        t.selectionStart = t.selectionEnd = ss + 4;
-    }
-}
-
-function showAdminTools(hideMe){
-	document.getElementById('showAdminFunctions').style.display = \"none\";
-	document.getElementById('hiddenAdmin').style.display = \"block\";
-	return false;
-}
-
-function showInstructions(){
-	document.getElementById('showInstructions').style.display = \"none\";
-	document.getElementById('instructions').style.display = \"block\";
-	return false;
-}
-
-function showSubdomain(){
-	document.getElementById('showSubdomain').style.display = \"none\";
-	document.getElementById('subdomainForm').style.display = \"block\";
-	return false;
-}
-
-function submitPaste(targetButton) {
-	var disabledButton = document.createElement('input');
-	var parentContainer = document.getElementById('submitContainer');
-	disabledButton.setAttribute('value', 'Posting...');
-	disabledButton.setAttribute('type', 'button');
-	disabledButton.setAttribute('disabled', 'disabled');
-	disabledButton.setAttribute('id', 'dummyButton');
-	targetButton.style.display = \"none\";
-	parentContainer.appendChild(disabledButton);
-	return true;
-}";
-
-			if($bin->jQuery())
-				{ echo "<script type=\"text/javascript\" src=\"" . $CONFIG['pb_jQuery'] . "\"></script>";
-
-		?>
-			<script type="text/javascript">
-				var pasteEnterH;
-
-				$.fn.resizehandle = function() {
- 					return this.each(function() {
-    						var me = $(this);
-    							me.after(
-      							$('<div class="resizehandle"><?php if(!$bin->stylesheet()) echo "==="; ?></div>').bind('mousedown', function(e) {
-        							var h = me.height();
-        							var y = e.clientY;
-        							var moveHandler = function(e) {
-          								me.height(Math.max(20, e.clientY + h - y));
-       							 	};
-        							var upHandler = function(e) {
-          								$('html')
-          								.unbind('mousemove',moveHandler)
-          								.unbind('mouseup',upHandler);
-        							};
-        							$('html')
-        							.bind('mousemove', moveHandler)
-        							.bind('mouseup', upHandler);
-      								})
-    							);
-  						});
-				}
-				$(document).ready(function(){
-  					$('#lineNumbers li:nth-child(even)').addClass('alternate');
-					$('a[href][rel*=external]').each(function(i){this.target = "_blank";});
-					<?php if(!$bin->styleSheet()){ ?>
-					$("#foundURL").show().attr('class', 'success').css( { opacity: 0 } );
-					<?php } else { ?>
-					$("#foundURL").show().css( { opacity: 0 } );
-					<?php } ?>
-
-					pasteEnterH = $('#pasteEnter').height();
-					if(!$.browser.webkit)
-						$("textarea").resizehandle();
-
-				});
-				
-				<?php if($CONFIG['pb_url']) { ?>
-				function checkIfURL(checkMe){
-					var checking = checkMe.value;
-					var regExpression = new RegExp();
-					regExpression.compile('^[A-Za-z]+://[A-Za-z0-9-_]+\\.[A-Za-z0-9-_%&\?\/\!.=]+$');
-					if(regExpression.test(checking)){
-						$("#pasteEnter").animate({ height: "20px"  }, 500, function() { $("#pasteEnter").attr("id", "urlField"); $("#pasteEnter").attr("name", "urlField"); $("#foundURL").animate({ opacity: 1 }, 250); $("#fileUploadContainer").animate({ opacity: 0 }, 250); $("#highlightContainer").animate({ opacity: 0 }, 250); });
-						return false;
-					}
-					else {
-						if(checkMe.id != "pasteEnter")
-							$("#urlField").animate({ height: pasteEnterH + "px"  }, 500, function() { $("#urlField").attr("id", "pasteEnter"); $("#urlField").attr("name", "pasteEnter"); $("#foundURL").animate({ opacity: 0 }, 250); $("#fileUploadContainer").animate({ opacity: 1 }, 250); $("#highlightContainer").animate({ opacity: 1 }, 250); });
-						return false;
-					}
-				}
-				<?php } else { ?>
-				function checkIfURL(checkMe){
-					return false;
-				}
-				<?php } ?>
-
-
-				function showAdminTools(hideMe){
-					$('#showAdminFunctions').hide(500);
-					$('#hiddenAdmin').slideDown(500);
-					return false;
-				}
-
-				function showInstructions(){
-					$('#showInstructions').hide(500);
-					$('#instructions').slideDown(500);
-					return false;
-				}
-
-				function showSubdomain(){
-					$('#showSubdomain').hide(500);
-					$('#subdomainForm').slideDown(500);
-					return false;
-				}
-
-
-
-				/* AJAXIAN */
-
-				var tab = "	";
-       
-				function catchTab(evt) {
-				    var t = evt.target;
-				    var ss = t.selectionStart;
-				    var se = t.selectionEnd;
-				 
-				    if (evt.keyCode == 9) {
-					evt.preventDefault();
-					       
-					if (ss != se && t.value.slice(ss,se).indexOf("\n") != -1) {
-					    var pre = t.value.slice(0,ss);
-					    var sel = t.value.slice(ss,se).replace(/\n/g,"\n"+tab);
-					    var post = t.value.slice(se,t.value.length);
-					    t.value = pre.concat(tab).concat(sel).concat(post);
-						   
-					    t.selectionStart = ss + tab.length;
-					    t.selectionEnd = se + tab.length;
-					}
-					       
-					else {
-					    t.value = t.value.slice(0,ss).concat(tab).concat(t.value.slice(ss,t.value.length));
-					    if (ss == se) {
-						t.selectionStart = t.selectionEnd = ss + tab.length;
-					    }
-					    else {
-						t.selectionStart = ss + tab.length;
-						t.selectionEnd = se + tab.length;
-					    }
-					}
-				    }
-					   
-				   else if (evt.keyCode==8 && t.value.slice(ss - 4,ss) == tab) {
-					evt.preventDefault();
-					       
-					t.value = t.value.slice(0,ss - 4).concat(t.value.slice(ss,t.value.length));
-					t.selectionStart = t.selectionEnd = ss - tab.length;
-				    }
-					   
-				    else if (evt.keyCode==46 && t.value.slice(se,se + 4) == tab) {
-					evt.preventDefault();
-					     
-					t.value = t.value.slice(0,ss).concat(t.value.slice(ss + 4,t.value.length));
-					t.selectionStart = t.selectionEnd = ss;
-				    }
-
-				    else if (evt.keyCode == 37 && t.value.slice(ss - 4,ss) == tab) {
-					evt.preventDefault();
-					t.selectionStart = t.selectionEnd = ss - 4;
-				    }
-				    else if (evt.keyCode == 39 && t.value.slice(ss,ss + 4) == tab) {
-					evt.preventDefault();
-					t.selectionStart = t.selectionEnd = ss + 4;
-				    }
-				}
-
-				function submitPaste(targetButton){
-					$('.error').remove();
-					var buttonElement = $(targetButton);
-					var parentForm = $('#pasteForm');
-					<?php if($requri) { ?>
-					var originalPaste = $('#originalPaste').attr('value');
-					var parentThread = $('#parentThread').attr('value');
-					<?php } else { ?>
-					var originalPaste = "";
-					var parentThread = "";
-					<?php } 
-					if(!$CONFIG['pb_images'] || $requri){
-						?>
-						var pasteImage = "";
-						<?php }
-					else {
-						?>
-						var pasteImage = $('#pasteImage').attr('value');
-						<?php 
-					}
-					?>
-
-					var dataString = $('#pasteForm').serialize();
-
-					if(pasteImage == ""){
-						buttonElement.attr('value', 'Posting...').attr('disabled', 'disabled');
-						$.ajax({  
-      							type: "POST",  
-      							url: "<?php echo $bin->linker('api'); ?>",  
-      							data: dataString,
-							dataType: "json", 
-      							success: function(msg) {
-								$('#result').attr('class', 'result');
-								if(msg.error != 0)
-									{
-										buttonElement.removeAttr('disabled');
-										buttonElement.attr('value', 'Submit your Paste');
-										$('#result').prepend('<div class="error" id="' + msg.error + '">' + msg.message + '</div>');
-									} else
-										{
-											$('#result').prepend('<div class="success"><a href="' + msg.url + '">Redirecting</a>...</div>');
-											window.location = msg.url;
-										}
-
-								window.scrollTo(0,0);
-     							 },
-							error: function(msg) {
-								buttonElement.removeAttr('disabled');
-								buttonElement.attr('value', 'Submit your Paste');
-								$('#result').prepend('<div class="error">Something went wrong</div><div class="confirmURL">' + msg + '</div>');
-								window.scrollTo(0,0);
-							} 
-    						});
-					return false;
-					} else
-						{
-							buttonElement.css({ display: "none" });
-							buttonElement.parent().append('<input type="button" name="blank" id="dummyButton" value="Posting..." disabled="disabled" />');
-							/* http://www.bennadel.com/blog/1244-ColdFusion-jQuery-And-AJAX-File-Upload-Demo.htm */
-							var strName = ("image" + (new Date()).getTime());
-							var iFrame = $("<iframe name=\"" + strName + "\" src=\"about:blank\" />");
-							iFrame.css("display", "none");
-							$("body").append(iFrame);
-							parentForm.attr("action", "<?php echo $bin->linker('api'); ?>")
-							.attr("method", "post")
-							.attr("enctype", "multipart/form-data")
-							.attr("encoding", "multipart/form-data")
-							.attr("target", strName);
-							iFrame.load(
-								function(objEvent){
-									$('#result').attr('class', 'result');
-									var objUploadBody = window.frames[ strName ].document.getElementsByTagName( "body" )[ 0 ];
-									var iBody = $( objUploadBody );
-									var objData = eval( "(" + iBody.html() + ")" );
-									if(objData.error != 0)
-										{
-											buttonElement.css({ display: "block" });
-											$('#dummyButton').remove();
-											$('#result').prepend('<div class="error" id="' + objData.error + '">' + objData.message + '</div>');
-										} else
-											{
-												$('#result').prepend('<div class="success"><a href="' + objData.url + '">Redirecting</a>...</div>');
-												window.location = objData.url;
-											}
-									setTimeout(function(){ iFrame.remove(); }, 100);
-									window.scrollTo(0,0);
-							});
-						}
-				}
-
-			</script>
-		<?php }
-
-			if($bin->_clipboard())
-				{
-					?>
-<script type="text/javascript" src="<?php echo $db->config['cbdir'] . "/swfobject.js"; ?>"></script>
-<script type="text/javascript">
-function findPosX(obj) {
-	var curleft = 0;
-	if(obj.offsetParent)
-		while(1) {
-          		curleft += obj.offsetLeft;
-			if(!obj.offsetParent)
-            			break;
-          		obj = obj.offsetParent;
-        	}
-    	else if(obj.x)
-        	curleft += obj.x;
-    	return curleft;
-}
-
-function findPosY(obj) {
-	var curtop = 0;
-    	if(obj.offsetParent)
-        	while(1) {
-          		curtop += obj.offsetTop;
-          		if(!obj.offsetParent)
-            			break;
-          		obj = obj.offsetParent;
-        	}
-    	else if(obj.y)
-        	curtop += obj.y;
-    	return curtop;
-}
-
-function findWidth(obj) {
-	var w = obj.width;
-	if(!w)
-		w = obj.offsetWidth;
-	return w;
-}
-function findHeight(obj) {
-	var h = obj.height;
-	if(!h)
-		h = obj.offsetHeight;
-	return h;
-}
-function formSend(id, target) {   
-	var originalText = eval(target).value;
-	document.getElementById(id).textToCopy(originalText);    
-}
-
-function setCopyVars(){
-	document.pasteForm.originalPaste.value = document.pasteForm.pasteEnter.value;
-}
-
-function flashReady(id, target) {
-		setCopyVars();
-		formSend(id, target);
-	<?php
-		if(!@$_POST['submit']) { ?>
-		document.getElementById("_copyText").style.visibility = "visible";
-		setTimeout("document.getElementById('_copyText').style.display = 'inline'", 500);
-	<?php	} ?>
-		document.getElementById("_copyURL").style.visibility = "visible";
-		setTimeout("document.getElementById('_copyURL').style.display = 'inline'", 500);
-}
-
-function sizeFlash() {
-
-	var divWidth = findWidth(document.getElementById("_copyText"));
-	var divHeight = findHeight(document.getElementById("_copyText"));
-	var divWidthURL = findWidth(document.getElementById("_copyURL"));
-	var divHeightURL = findHeight(document.getElementById("_copyURL"));
-
-	var flashvars = {
-	  id: "_clipboard",
-	  theTarget: "document.pasteForm.originalPaste",
-	  width: divWidth,
-	  height: divHeight
-	};
-	var params = {
-	  menu: "false",
-	  wmode: "transparent",
-	  allowScriptAccess: "always"
-	};
-	var attributes = {
-	  id: "_clipboard",
-	  name: "_clipboard"
-	};
-
-	var flashvarsURI = {
-	  id: "_clipboardURI",
-	  theTarget: "document.pasteForm.thisURI",
-	  width: divWidthURL,
-	  height: divHeightURL
-	};
-	var paramsURI = {
-	  menu: "false",
-	  wmode: "transparent",
-	  allowScriptAccess: "always"
-	};
-	var attributesURI = {
-	  id: "_clipboardURI",
-	  name: "_clipboardURI"
-	};
-
-	swfobject.embedSWF("<?php echo $CONFIG['pb_clipboard']; ?>", "_clipboard_replace", divWidth, divHeightURL, "10.0.0", "expressInstall.swf", flashvars, params, attributes);
-	swfobject.embedSWF("<?php echo $CONFIG['pb_clipboard']; ?>", "_clipboardURI_replace", divWidthURL, divHeightURL, "10.0.0", "expressInstall.swf", flashvarsURI, paramsURI, attributesURI);
-
-	repositionFlash("_clipboard", "_copyText");
-	repositionFlash("_clipboardURI", "_copyURL");
-}
-
-<?php if(!$bin->jQuery()){ ?>
-<?php if($CONFIG['pb_url']) { ?>
-function checkIfURL(checkMe){
-	var checking = checkMe.value;
-	var regExpression = new RegExp();
-	regExpression.compile('^[A-Za-z]+://[A-Za-z0-9-_]+\\.[A-Za-z0-9-_%&\?\/\!.=]+$');
-	if(regExpression.test(checking)){
-		checkMe.setAttribute("id", "urlField");
-		document.getElementById('foundURL').style.display = "block";
-		document.getElementById('fileUploadContainer').style.visibility = "hidden";
-		document.getElementById('highlightContainer').style.visibility = "hidden";
-		return false;
-	}
-	else {
-		if(checkMe.id != "pasteEnter")
-			checkMe.setAttribute("id", "pasteEnter");
-
-		document.getElementById('foundURL').style.display = "none";
-		document.getElementById('fileUploadContainer').style.visibility = "visible";
-		document.getElementById('highlightContainer').style.visibility = "visible";
-		return false;
-	}
-}
-<?php } else {?>
-function checkIfURL(checkMe){
-	return false;
-}
-<?php } 
-
-echo $_commonJS; ?>
-
-<?php } ?>
-
-function repositionFlash(id, zeTarget) {
-	var restyle = document.getElementById(id).style;
-	restyle.position = 'absolute';
-	restyle.zIndex = 99;
-	restyle.left = findPosX(document.getElementById(zeTarget)) + "px";
-	restyle.top = findPosY(document.getElementById(zeTarget)) + "px";
-	restyle.cursor = "pointer";
-	restyle.cursor = "hand";
-}
-function confirmCopy(id){
-	alert("Data has been copied to your clipboard!");
-}
-</script>
-<?php
-
-				} else
-					{ if(!$bin->jQuery()) { ?>
-<script type="text/javascript">
-<?php if($CONFIG['pb_url']) { ?>
-function checkIfURL(checkMe){
-	var checking = checkMe.value;
-	var regExpression = new RegExp();
-	regExpression.compile('^[A-Za-z]+://[A-Za-z0-9-_]+\\.[A-Za-z0-9-_%&\?\/\!.=]+$');
-	if(regExpression.test(checking)){
-		checkMe.setAttribute("id", "urlField");
-		document.getElementById('foundURL').style.display = "block";
-		document.getElementById('fileUploadContainer').style.visibility = "hidden";
-		return true;
-	}
-	else {
-		if(checkMe.id != "pasteEnter")
-			checkMe.setAttribute("id", "pasteEnter");
-
-		document.getElementById('foundURL').style.display = "none";
-		document.getElementById('fileUploadContainer').style.visibility = "visible";
-		return false;
-	}
-}
-<?php } else { ?>
-function checkIfURL(checkMe){
-	return true;
-}
-<?php } echo $_commonJS; ?>
-
-</script>
-<?php
-/* end JS */						}
-					}
-
-?>
 	</head>
-	<body<?php if($bin->_clipboard() && ($requri || @$_POST['submit']) && $requri != "install" && substr($requri, -1) != "!") { echo " onload=\"sizeFlash();\""; } ?>><div id="siteWrapper">
+	<body><div id="siteWrapper">
 <?php
 
 if($requri != "install" && !$db->connect())
@@ -2529,11 +1883,6 @@ if($requri != "install" && @$_POST['submit'])
 		if(@$_POST['pasteEnter'] == NULL && strlen(@$_FILES['pasteImage']['name']) > 4 && $CONFIG['pb_images'] && $imageUpload)
 			$_POST['pasteEnter'] = "Image file (" . $_FILES['pasteImage']['name'] . ") uploaded...";
 
-		$videoSRC = $bin->generateVideoEmbedCode($postedURL);
-
-		if($videoSRC || !$CONFIG['pb_url'])
-			$exclam = NULL;
-
 		if(!$CONFIG['pb_url'])
 			$postedURL = NULL;
 
@@ -2555,11 +1904,9 @@ if($requri != "install" && @$_POST['submit'])
 			'ID' => $pasteID,
 			'Author' => $bin->checkAuthor(@$_POST['author']),
 			'Subdomain' => $bin->db->config['subdomain'],
-			'IP' => $_SERVER['REMOTE_ADDR'],
 			'Image' => $imageUpload,
 			'ImageTxt' => "Image file (" . @$_FILES['pasteImage']['name'] . ") uploaded...",
 			'URL' => $postedURL,
-			'Video' => $videoSRC,
 			'Syntax' => $_POST['highlighter'],
 			'Lifespan' => $_POST['lifespan'],
 			'Protect' => $_POST['privacy'],
@@ -3206,16 +2553,7 @@ if($requri && $requri != "install" && substr($requri, -1) != "!")
 ?>
 	<div class="spacer">&nbsp;</div>
 	<div class="spacer">&nbsp;</div>
+	<div id="copyrightInfo">Powered by <a href="https://github.com/schwarzenbart/Black-Open-Pastebin">Black Open Pastebin</a>, 2012.</div>
 	</div>
-<?php if($bin->_clipboard() && $requri && $requri != "install")
-	echo "<div><span id=\"_clipboard_replace\">YOU NEED FLASH!</span> &nbsp; <span id=\"_clipboardURI_replace\">&nbsp;</span></div>";
-
-if(($requri && $requri != "install") && (!is_bool($pasted['Image']) && !is_numeric($pasted['Image'])) || ($pasted['Video'] && $CONFIG['pb_video']) && !$bin->jQuery())
-	echo "<script type=\"text/javascript\">setTimeout(\"toggleWrap()\", 1000); setTimeout(\"toggleStyle()\", 1000);</script>";
-elseif(($requri && $requri != "install") && (!is_bool($pasted['Image']) && !is_numeric($pasted['Image'])) || ($pasted['Video'] && $CONFIG['pb_video']) && $bin->jQuery())
-	echo "<script type=\"text/javascript\">$(document).ready(function() { setTimeout(\"toggleWrap()\", 1000); setTimeout(\"toggleStyle()\", 1000); });</script>";
-else
-	echo "<!-- End of Document -->";
-?>
 </body>
 </html>
