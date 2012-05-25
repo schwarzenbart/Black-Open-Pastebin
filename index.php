@@ -1767,6 +1767,7 @@ if($requri != "install")
 				.lineHighlight { background-color: #FFFFAA; font-weight: bolder; color: #000000; }
 			}
 		</style>
+	<?php } ?>	
 	</head>
 	<body><div id="siteWrapper">
 <?php
@@ -2432,9 +2433,6 @@ if($requri && $requri != "install" && substr($requri, -1) != "!")
 				</div>";
 				echo "</div>";
 			}
-
-
-
 ?>
 	<div class="spacer">&nbsp;</div>
 	<div class="spacer">&nbsp;</div>
