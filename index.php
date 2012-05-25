@@ -2354,11 +2354,6 @@ if($requri && $requri != "install" && substr($requri, -1) != "!")
 				else
 					$service['highlight'] = array('style' => 'error', 'status' => 'Disabled', 'tip' => NULL); 
 
-				if($bin->flowplayer())
-					$service['flowplayer'] = array('style' => 'success', 'status' => 'Enabled');
-				else
-					$service['flowplayer'] = array('style' => 'error', 'status' => 'Disabled');
-
 				$uploadForm = NULL;
 
 
