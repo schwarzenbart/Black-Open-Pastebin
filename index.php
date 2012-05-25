@@ -865,6 +865,8 @@ class bin
 				
 			}
 
+		public function generateRandomString($length)
+			{
 				$checkArray = array('install', 'api', 'defaults', 'recent', 'raw', 'download', 'moo', 'pastes', 'forbidden', 0);
 
 				$characters = "0123456789abcdefghijklmnopqrstuvwxyz";  
