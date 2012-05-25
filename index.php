@@ -1141,7 +1141,7 @@ class bin
 				$output = strtoupper(sha1(str_rot13(md5($_SERVER['REMOTE_ADDR'] . $_SERVER['SERVER_ADDR'] . $_SERVER['HTTP_USER_AGENT'] . $_SERVER['SCRIPT_FILENAME']))));
 				return $output;
 			}
-
+	}
 $requri = $_SERVER['REQUEST_URI'];
 $scrnam = $_SERVER['SCRIPT_NAME'];
 $reqhash = NULL;
