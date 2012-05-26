@@ -1713,7 +1713,7 @@ if($requri != "install")
 				body { background: #E0E0E0; font-family: Arial, Helvetica, sans-serif; color: #3F3F3F; font-size: 12px; }
 				h2 { font-size: 15px; }
 				a { color: #CC6633; }
-				img { border: 1px solid #3A3A3A; padding: 10px; }
+				img { background: #ffffff; border: 1px solid #3A3A3A; padding: 10px; }
 				pre { display: inline; font-family: inherit; } 
 				.success { background-color: #AAFFAA; border: 1px solid #00CC00; font-weight: bolder; text-align: center; padding: 2px; color: #000000; margin-top: 3px; margin-bottom: 3px; }
 				.warn { background-color: #FFFFAA; border: 1px solid #CCCC00; font-weight: bolder; text-align: center; padding: 2px; color: #000000; margin-top: 3px; margin-bottom: 3px; }
