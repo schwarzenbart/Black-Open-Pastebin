@@ -1707,8 +1707,7 @@ if($requri != "install")
 				#newPaste { text-align: center; border-bottom: 1px dotted #CCCCCC; padding-bottom: 10px; }
 				#lineNumbers { width: 100%; max-height: 500px; background-color: #FFFFFF; overflow: auto; padding: 0; margin: 0; }
 				div#siteWrapper { width: 100%; margin: 0 auto; }
-				div#siteWrapper > #showAdminFunctions { max-width: 800px; margin: 25px; }
-				div#siteWrapper > #hiddenAdmin { max-width: 800px; margin: 25px; }
+				div#siteWrapper > #adminBox { max-width: 800px; margin: 25px; }
 				div#recentPosts { width: 15%; font-size: xx-small; float: left; position: relative; margin-left: 1%; }
 				div#pastebin { width: 82%; float: left; position: relative; padding-left: 1%; border-left: 1px dotted #CCCCCC; }
 				#pasteEnter { width: 100%; height: 250px; border: 1px solid #CCCCCC; background-color: #FFFFFF; }
@@ -1723,8 +1722,7 @@ if($requri != "install")
 				#adminAction { width: 100%; }
 				#urlField { background-color: #FFFFFF; border-top: 1px solid #CCCCCC; border-bottom: 1px solid #CCCCCC; border-left: none; border-right: none; height: 20px; width: 100%; }
 				#emphasizedURL	{ font-size: x-large; width: 100%; overflow: auto; font-style: italic; padding: 5px; }
-				#showAdminFunctions { font-size: xx-small; font-weight: bold; text-align: center; }
-				#hiddenAdmin { display: none; padding-right: 10px; }
+				#adminBox { padding-right: 10px; }
 				#instructions { display: none; }
 				#tagline { margin-bottom: 10px; }
 				#serviceList li { margin-top: 7px; margin-bottom: 7px; list-style: square; }
@@ -1945,7 +1943,7 @@ if($requri != "install" && $CONFIG['pb_recent_posts'] && substr($requri, -1) != 
 					echo "&nbsp;";
 			if($requri)
 				{
-					echo "<div id=\"showAdminFunctions\"><a href=\"#\" onclick=\"return showAdminTools();\">Show Admin tools</a></div><div id=\"hiddenAdmin\"><h2>Administrate</h2>";
+					echo "<div id=\"adminBox\"><h2>Administrate</h2>";
 					echo "<div id=\"adminFunctions\">
 							<form id=\"adminForm\" action=\"" . $bin->linker($requri) . "\" method=\"post\">
 								<label for=\"adminPass\">Password</label><br />
@@ -1966,7 +1964,7 @@ if($requri != "install" && $CONFIG['pb_recent_posts'] && substr($requri, -1) != 
 				{
 					echo "<div id=\"recentPosts\" class=\"recentPosts\">";
 					echo "<h2><a href=\"" . $bin->linker() . "\">New Paste</a></h2><div class=\"spacer\">&nbsp;</div>";
-					echo "<div id=\"showAdminFunctions\"><a href=\"#\" onclick=\"return showAdminTools();\">Show Admin tools</a></div><div id=\"hiddenAdmin\"><h2>Administrate</h2>";
+					echo "<div id=\"adminBox\"><h2>Administrate</h2>";
 					echo "<div id=\"adminFunctions\">
 							<form id=\"adminForm\" action=\"" . $bin->linker($requri) . "\" method=\"post\">
 								<label for=\"adminPass\">Password</label><br />
@@ -2167,7 +2165,7 @@ if($requri && $requri != "install" && substr($requri, -1) != "!")
 						<input type=\"hidden\" name=\"thisURI\" id=\"thisURI\" value=\"" . $bin->linker($pasted['ID']) . "\" />
 						<div id=\"fileUploadContainer\" style=\"display: none;\">&nbsp;</div>
 						<div id=\"submitContainer\" class=\"submitContainer\">
-							<input type=\"submit\" name=\"submit\" value=\"Submit your paste\" onclick=\"return submitPaste(this);\" id=\"submitButton\" />
+							<input type=\"submit\" name=\"submit\" value=\"Submit your paste\" id=\"submitButton\" />
 						</div>
 					</form>
 				</div>
@@ -2197,7 +2195,7 @@ if($requri && $requri != "install" && substr($requri, -1) != "!")
 				echo "<div class=\"result\"><h1>Warning!</h1><div class=\"error\">You are about to leave the site!</div>
 				<div class=\"infoMessage\">This paste redirects you to<br /><br /><div id=\"emphasizedURL\">" . $bin->checkIfRedir(substr($requri, 0, -1)) . "</div><br /><br />Danger lurks on the world wide web, if you want to visit the site <strong><a href=\"" . $bin->checkIfRedir(substr($requri, 0, -1)) . "\">click here</a></strong>. Please note that the owner of this pastebin will not be held responsible for the content of the site.<br /><br /><a href=\"" . $bin->linker() . "\">Take me back...</a></div></div>";
 
-			echo "<div id=\"showAdminFunctions\"><a href=\"#\" onclick=\"return showAdminTools();\">Show Admin tools</a></div><div id=\"hiddenAdmin\"><div class=\"spacer\">&nbsp;</div><h2>Administrate</h2>";
+			echo "<div id=\"adminBox\"><div class=\"spacer\">&nbsp;</div><h2>Administrate</h2>";
 					echo "<div id=\"adminFunctions\">
 							<form id=\"adminForm\" action=\"" . $bin->linker(substr($requri, 0, -1)) . "\" method=\"post\">
 								<label for=\"adminPass\">Password</label><br />
@@ -2421,7 +2419,7 @@ if($requri && $requri != "install" && substr($requri, -1) != "!")
 						<div class=\"spacer\">&nbsp;</div>
 						<input type=\"text\" name=\"email\" id=\"poison\" style=\"display: none;\" />
 						<div id=\"submitContainer\" class=\"submitContainer\">
-							<input type=\"submit\" name=\"submit\" value=\"Submit your paste\" onclick=\"return submitPaste(this);\" id=\"submitButton\" />
+							<input type=\"submit\" name=\"submit\" value=\"Submit your paste\" id=\"submitButton\" />
 						</div>
 						</div>
 					</form>
