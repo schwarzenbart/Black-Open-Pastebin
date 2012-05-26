@@ -1747,7 +1747,6 @@ if($requri != "install")
 				#urlField { background-color: #FFFFFF; border-top: 1px solid #CCCCCC; border-bottom: 1px solid #CCCCCC; border-left: none; border-right: none; height: 20px; width: 100%; }
 				#emphasizedURL	{ font-size: x-large; width: 100%; overflow: auto; font-style: italic; padding: 5px; }
 				#adminBox { padding-right: 10px; }
-				#instructions { display: none; }
 				#tagline { margin-bottom: 10px; }
 				#serviceList li { margin-top: 7px; margin-bottom: 7px; list-style: square; }
 				#authorContainer { width: 48%; float: left; margin-bottom: 10px;  }
