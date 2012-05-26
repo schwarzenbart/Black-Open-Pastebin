@@ -1744,7 +1744,6 @@ if($requri != "install")
 				#copyrightInfo { color: #999999; font-size: xx-small; position: fixed; bottom: 0px; right: 10px; padding-bottom: 10px; text-align: left; }
 				ul#postList { padding: 0; margin-left: 0; list-style-type: none; margin-bottom: 50px; }
 				#adminAction { width: 100%; }
-				#urlField { background-color: #FFFFFF; border-top: 1px solid #CCCCCC; border-bottom: 1px solid #CCCCCC; border-left: none; border-right: none; height: 20px; width: 100%; }
 				#emphasizedURL	{ font-size: x-large; width: 100%; overflow: auto; font-style: italic; padding: 5px; }
 				#adminBox { padding-right: 10px; }
 				#tagline { margin-bottom: 10px; }
