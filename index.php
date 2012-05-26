@@ -2079,12 +2079,9 @@ if($requri && $requri != "install" && substr($requri, -1) != "!")
 				if(strlen($pasted['Parent']) > 0)
 					echo "<div class=\"warn\"><strong>This is an edit of</strong> <a href=\"" . $bin->linker($pasted['Parent']) . "\">" . $bin->linker($pasted['Parent']) . "</a></div>";
 
-				if(!$bin->highlight() || (!is_bool($pasted['Image']) && !is_numeric($pasted['Image'])) || $pasted['Syntax'] == "plaintext")
-					echo "<div id=\"styleBar\"><strong>Tools</strong> <a href=\"" . $bin->linker($pasted['ID'] . '@raw') . "\">Raw</a> &nbsp; <a href=\"" . $bin->linker($pasted['ID'] . '@download') . "\">Download</a></div>";
-				else
-					echo "<div id=\"styleBar\"><strong>Tools</strong> <a href=\"" . $bin->linker($pasted['ID'] . '@raw') . "\">Raw</a> &nbsp; <a href=\"" . $bin->linker($pasted['ID'] . '@download') . "\">Download</a></div>";
+				echo "<div id=\"styleBar\"><strong>Tools</strong> <a href=\"" . $bin->linker($pasted['ID'] . '@raw') . "\">Raw</a> &nbsp; <a href=\"" . $bin->linker($pasted['ID'] . '@download') . "\">Download</a></div>";
 
-					echo "<div class=\"spacer\">&nbsp;</div>";
+				echo "<div class=\"spacer\">&nbsp;</div>";
 
 				
 				if(!$bin->highlight() || (!is_bool($pasted['Image']) && !is_numeric($pasted['Image'])) || $pasted['Syntax'] == "plaintext")
@@ -2338,7 +2335,7 @@ if($requri && $requri != "install" && substr($requri, -1) != "!")
 					$service['editing'] = array('style' => 'error', 'status' => 'Disabled');
 
 				if($CONFIG['pb_api'])
-					$service['api'] = array('style' => 'success', 'status' => 'Enabled', 'tip' => '<div class="spacer">&nbsp;</div><div><strong>Developer API</strong></div><div>To create a new paste submit using <strong>POST</strong> to <a href="' . $bin->linker('api') . '">' . $bin->linker('api') . '</a> - The response is in JSON format. For server settings visit <a href="' . $bin->linker('defaults') . '">' . $bin->linker('defaults') . '</a>.</div>');
+					$service['api'] = array('style' => 'success', 'status' => 'Enabled', 'tip' => ' [ <a href="' . $bin->linker('api') . '">JSON API</a> ] [ <a href="' . $bin->linker('defaults') . '">API Settings</a> ]');
 				else
 					$service['api'] = array('style' => 'error', 'status' => 'Disabled', 'tip' => NULL);
 
@@ -2382,15 +2379,15 @@ if($requri && $requri != "install" && substr($requri, -1) != "!")
 					$uploadForm = "<div id=\"fileUploadContainer\"><input type=\"hidden\" name=\"MAX_FILE_SIZE\" value=\"" . $CONFIG['pb_image_maxsize'] . "\" /><label>Attach an Image (" . implode(", ", $CONFIG['pb_image_extensions']) . " &raquo; Max size " . $bin->humanReadableFilesize($CONFIG['pb_image_maxsize']) . ")</label><br /><input type=\"file\" name=\"pasteImage\" id=\"pasteImage\" /><br />(Optional)</div>";
 				else
 					$uploadForm = "<div id=\"fileUploadContainer\">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;</div>";
-				
+			
+	
 				echo "<div id=\"pastebin\" class=\"pastebin\">"
 				. "<h1>" .  $bin->setTitle($CONFIG['pb_name'])  . "</h1>" .
 				$bin->setTagline($CONFIG['pb_tagline'])
 				. "<div id=\"result\"></div>
 				<div id=\"formContainer\">
-				<div id=\"instructions\" class=\"instructions\"><h2>How to use</h2><div>Fill out the form with data you wish to store online. You will be given an unique address to access your content that can be sent over IM/Chat/(Micro)Blog for online collaboration (eg, " . $bin->linker('z3n') . "). The following services have been made available by the administrator of this server:</div><ul id=\"serviceList\"><li><span class=\"success\">Enabled</span> Text</li><li><span class=\"" . $service['syntax']['style'] . "\">" . $service['syntax']['status'] . "</span> Syntax Highlighting</li><li><span class=\"" . $service['highlight']['style'] . "\">" . $service['highlight']['status'] . "</span> Line Highlighting</li><li><span class=\"" . $service['editing']['style'] . "\">" . $service['editing']['status'] . "</span> Editing</li><li><span class=\"" . $service['encrypting']['style'] . "\">" . $service['encrypting']['status'] . "</span> Password Protection</li><li><span class=\"" . $service['images']['style'] . "\">" . $service['images']['status'] . "</span> Image hosting</li><li><span class=\"" . $service['image_download']['style'] . "\">" . $service['image_download']['status'] . "</span> Copy image from URL</li><li><span class=\"" . $service['url']['style'] . "\">" . $service['url']['status'] . "</span> URL Shortening/Redirection</li><li><span class=\"" . $service['api']['style'] . "\">" . $service['api']['status'] . "</span> API</li></ul><div class=\"spacer\">&nbsp;</div><div><strong>What to do</strong></div><div>Just paste your text, sourcecode or conversation into the textbox below, add a name if you wish" . $service['images']['tip'] . " then hit submit!" . $service['url']['tip'] . "" . $service['highlight']['tip'] . "</div><div class=\"spacer\">&nbsp;</div><div><strong>Some tips about usage;</strong> If you want to put a message up asking if the user wants to continue, add an &quot;!&quot; suffix to your URL (eg, " . $bin->linker('z3n') . "!).</div>" . $service['api']['tip'] . "<div class=\"spacer\">&nbsp;</div></div>
 				<form id=\"pasteForm\" action=\"" . $bin->linker() . "\" method=\"post\" name=\"pasteForm\" enctype=\"multipart/form-data\">	
-				<div><label for=\"pasteEnter\" class=\"pasteEnterLabel\">Paste your text" . $service['url']['str'] . " here!" . $service['highlight']['tip'] . "</label>
+				<div><label for=\"pasteEnter\" class=\"pasteEnterLabel\">Paste your text" . $service['url']['str'] . " here!" . $service['highlight']['tip'] . $service['api']['tip'] . "</label>
 						<textarea id=\"pasteEnter\" name=\"pasteEnter\"></textarea></div>
 						<div id=\"foundURL\" style=\"display: none;\">URL has been detected...</div>
 						<div class=\"spacer\">&nbsp;</div>
