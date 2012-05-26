@@ -1710,9 +1710,9 @@ if($requri != "install")
 			else {
 		?>
 		<style type="text/css">
-				body { background: #fff; font-family: Arial, Helvetica, sans-serif; font-size: 12px; }
+				body { background: #3a3a3a; font-family: Arial, Helvetica, sans-serif; color: #E0E0E0; font-size: 12px; }
 				h2 { font-size: 15px; }
-				a { color: #336699; }
+				a { color: #CC6633; }
 				img { border: none; }
 				pre { display: inline; font-family: inherit; } 
 				.success { background-color: #AAFFAA; border: 1px solid #00CC00; font-weight: bolder; text-align: center; padding: 2px; color: #000000; margin-top: 3px; margin-bottom: 3px; }
