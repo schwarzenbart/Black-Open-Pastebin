@@ -1638,6 +1638,9 @@ if($requri != "install" && $requri != NULL && substr($requri, -1) != "!" && !$_P
 				if($db->dbt == "mysql")
 					$pasted = $pasted[0];
 
+				if(strlen($pasted['Image']) > 3)
+					header("Location: " . $bin->linker() . $db->setDataPath($pasted['Image']));
+
 				header("Content-Type: text/plain; charset=utf-8");
 				die($db->rawHTML($bin->noHighlight($pasted['Data'])));
 			}
@@ -1651,6 +1654,27 @@ if($requri != "install" && $requri != NULL && substr($requri, -1) != "!" && !$_P
                         {
                                 if($db->dbt == "mysql")
                                         $pasted = $pasted[0];
+
+				if(strlen($pasted['Image']) > 3)
+					{
+						$imageServe =$db->setDataPath($pasted['Image']);
+						$imgFileInfo = pathinfo($imageServe);
+						if($imgFileInfo['extension'] == "jpg")
+							$imgFileInfo['extension'] = "jpeg";
+
+						header("Pragma: public");
+						header("Expires: 0");
+						header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+						header("Cache-Control: private", false);
+						header("Content-Type: image/" . $imgFileInfo['extension']);
+						header("Content-Disposition: attachment; filename=" . $requri . "." . str_replace("jpeg", "jpg", $imgFileInfo['extension']));
+						header("Content-Transfer-Encoding: binary");
+						header("Content-Length: " . filesize($imageServe));
+
+						readfile($imageServe);
+
+						die();	
+					}
 
                                 header("Content-Type: text/plain; charset=utf-8");
 				header("Content-Disposition: attachment; filename='" . $requri . ".txt'");
