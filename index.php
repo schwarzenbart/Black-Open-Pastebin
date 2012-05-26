@@ -2090,7 +2090,7 @@ if($requri && $requri != "install" && substr($requri, -1) != "!")
 				echo "<div id=\"formContainer\">
 					<form id=\"pasteForm\" name=\"pasteForm\" action=\"" . $bin->linker($pasted['ID']) . "\" method=\"post\">
 						<div><label for=\"pasteEnter\">Edit this post! " . $lineHighlight . "</label><br />
-						<textarea id=\"pasteEnter\" name=\"pasteEnter\" onkeydown=\"return catchTab(event)\" " . $event . "=\"return checkIfURL(this);\">" . $pasted['Data']['noHighlight']['Dirty'] . "</textarea></div>
+						<textarea id=\"pasteEnter\" name=\"pasteEnter\">" . $pasted['Data']['noHighlight']['Dirty'] . "</textarea></div>
 						<div id=\"foundURL\" style=\"display: none;\">URL has been detected...</div>
 						<div class=\"spacer\">&nbsp;</div>";
 
@@ -2156,7 +2156,7 @@ if($requri && $requri != "install" && substr($requri, -1) != "!")
 						echo "<div class=\"spacer\">&nbsp;</div>";
 
 						echo "<div id=\"authorContainerReply\"><label for=\"authorEnter\">Your Name</label><br />
-						<input type=\"text\" name=\"author\" id=\"authorEnter\" value=\"" . $CONFIG['_temp_pb_author'] . "\" onfocus=\"if(this.value=='" . $CONFIG['_temp_pb_author'] . "')this.value='';\" onblur=\"if(this.value=='')this.value='" . $CONFIG['_temp_pb_author'] . "';\" maxlength=\"32\" /></div>
+						<input type=\"text\" name=\"author\" id=\"authorEnter\" maxlength=\"32\" /></div>
 						<div class=\"spacer\">&nbsp;</div>
 						<input type=\"text\" name=\"email\" id=\"poison\" style=\"display: none;\" />
 						<input type=\"hidden\" name=\"ajax_token\" value=\"" . $bin->token(TRUE) . "\" />
@@ -2368,7 +2368,7 @@ if($requri && $requri != "install" && substr($requri, -1) != "!")
 				<div id=\"instructions\" class=\"instructions\"><h2>How to use</h2><div>Fill out the form with data you wish to store online. You will be given an unique address to access your content that can be sent over IM/Chat/(Micro)Blog for online collaboration (eg, " . $bin->linker('z3n') . "). The following services have been made available by the administrator of this server:</div><ul id=\"serviceList\"><li><span class=\"success\">Enabled</span> Text</li><li><span class=\"" . $service['syntax']['style'] . "\">" . $service['syntax']['status'] . "</span> Syntax Highlighting</li><li><span class=\"" . $service['highlight']['style'] . "\">" . $service['highlight']['status'] . "</span> Line Highlighting</li><li><span class=\"" . $service['editing']['style'] . "\">" . $service['editing']['status'] . "</span> Editing</li><li><span class=\"" . $service['encrypting']['style'] . "\">" . $service['encrypting']['status'] . "</span> Password Protection</li><li><span class=\"" . $service['images']['style'] . "\">" . $service['images']['status'] . "</span> Image hosting</li><li><span class=\"" . $service['image_download']['style'] . "\">" . $service['image_download']['status'] . "</span> Copy image from URL</li><li><span class=\"" . $service['url']['style'] . "\">" . $service['url']['status'] . "</span> URL Shortening/Redirection</li><li><span class=\"" . $service['api']['style'] . "\">" . $service['api']['status'] . "</span> API</li></ul><div class=\"spacer\">&nbsp;</div><div><strong>What to do</strong></div><div>Just paste your text, sourcecode or conversation into the textbox below, add a name if you wish" . $service['images']['tip'] . " then hit submit!" . $service['url']['tip'] . "" . $service['highlight']['tip'] . "</div><div class=\"spacer\">&nbsp;</div><div><strong>Some tips about usage;</strong> If you want to put a message up asking if the user wants to continue, add an &quot;!&quot; suffix to your URL (eg, " . $bin->linker('z3n') . "!).</div>" . $service['api']['tip'] . "<div class=\"spacer\">&nbsp;</div></div>
 				<form id=\"pasteForm\" action=\"" . $bin->linker() . "\" method=\"post\" name=\"pasteForm\" enctype=\"multipart/form-data\">	
 				<div><label for=\"pasteEnter\" class=\"pasteEnterLabel\">Paste your text" . $service['url']['str'] . " here!" . $service['highlight']['tip'] . "</label>
-						<textarea id=\"pasteEnter\" name=\"pasteEnter\" onkeydown=\"return catchTab(event)\" " . $event . "=\"return checkIfURL(this);\"></textarea></div>
+						<textarea id=\"pasteEnter\" name=\"pasteEnter\"></textarea></div>
 						<div id=\"foundURL\" style=\"display: none;\">URL has been detected...</div>
 						<div class=\"spacer\">&nbsp;</div>
 						<div id=\"secondaryFormContainer\"><input type=\"hidden\" name=\"ajax_token\" value=\"" . $bin->token(TRUE) . "\" />";
@@ -2414,7 +2414,7 @@ if($requri && $requri != "install" && substr($requri, -1) != "!")
 						echo "<div class=\"spacer\">&nbsp;</div>";
 
 						echo "<div id=\"authorContainer\"><label for=\"authorEnter\">Your Name</label><br />
-						<input type=\"text\" name=\"author\" id=\"authorEnter\" value=\"" . $CONFIG['_temp_pb_author'] . "\" onfocus=\"if(this.value=='" . $CONFIG['_temp_pb_author'] . "')this.value='';\" onblur=\"if(this.value=='')this.value='" . $CONFIG['_temp_pb_author'] . "';\" maxlength=\"32\" /></div>
+						<input type=\"text\" name=\"author\" id=\"authorEnter\" maxlength=\"32\" /></div>
 						" . $uploadForm . "
 						<div class=\"spacer\">&nbsp;</div>
 						<input type=\"text\" name=\"email\" id=\"poison\" style=\"display: none;\" />
