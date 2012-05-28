@@ -51,6 +51,9 @@ $CONFIG['pb_name'] = FALSE;
 // Pastebin's Tagline (Message under the name/title), FALSE leaves this blank
 $CONFIG['pb_tagline'] = FALSE;
 
+// Extra information (message under recent pastes, good for donations), FALSE leaves blank.
+$CONFIG['pb_extrainfo'] = FALSE;
+
 // Hashing algorithm, (Default: MD5)
 // For a full list, consult the function hash_algos();
 $CONFIG['pb_algo'] = "md5";
