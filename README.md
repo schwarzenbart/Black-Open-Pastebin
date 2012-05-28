@@ -6,6 +6,9 @@ Edited by schwarzenbart (2012)
 
 Donate (BTC): 15N9ahAiCVHNCJEUF9YA6AEt8Hg5BmnPR6
 
+Please donate, help me keep this scipt up to date with original code, remove code excess and add new features.
+
+
 ### Original Author
 Copyright (c) 2009-2011 Xan Manning (http://xan-manning.co.uk/)
 
@@ -22,7 +25,7 @@ A quick to set up, rapid install, two-file pastebin! (or at least can be) Suppor
 
  * EXAMPLE: http://hvieybi6rb45wfpg.onion/
 
-The original code by Xan Manning is very nice and fun, a bit messy to follow, but not very good for run through Tor Browsers. This project aim to expel the javascript (blocked by browser when using tor) and make it lighter for slow tor connection.
+The original code by Xan Manning is very nice and fun, a bit messy to follow, but not very good for run through Tor Browsers. This project aim to expel the javascript (blocked by browser when using tor) and make it lighter for slow tor connection. I also add new feature where possible make it a bit better. I will also clean up the code little.
 
 
 
