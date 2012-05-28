@@ -1742,7 +1742,8 @@ if($requri != "install")
 				#passForm { background: #ffffff; padding: 50px; padding-left: 40%; border: 1px solid #CCCCCC; }
 				#passForm > label { display: block; }
 				#adminPass { background-color: #FFFFFF; border-top: 1px solid #CCCCCC; border-bottom: 1px solid #CCCCCC; border-left: none; border-right: none; width: 100%;  }
-				#copyrightInfo { color: #CCCCCC; background: #E0E0E0; background: rgba(0, 0, 0, 0.5); font-size: xx-small; position: fixed; bottom: 0px; right: 10px; padding-bottom: 10px; text-align: left; }
+				#copyrightInfo { color: #CCCCCC; background: #E0E0E0; background: rgba(0, 0, 0, 0.5); font-size: xx-small; position: fixed; bottom: 0px; right: 10px; padding-bottom: 10px; text-align: right; width: 100%; }
+				#copyrightInfo a { color: #FFCCAA; }
 				ul#postList { padding: 0; margin-left: 0; padding: 25px; list-style-type: square; margin-bottom: 50px; background: #FFFFFF; margin-right: 10px; }
 				#adminAction { width: 100%; }
 				#emphasizedURL	{ font-size: x-large; width: 100%; overflow: auto; font-style: italic; padding: 5px; }
