@@ -1767,7 +1767,8 @@ if($requri != "install")
 				#imageContainer { text-align: center; padding: 10px; }
 				#styleBar { text-align: left; position: relative; float: left; width: 48%; }
 				#retrievedPaste { width: 100%; position: relative; padding: 0; margin: 0; margin-top: 10px; margin-bottom: 10px; border: 1px solid #CCCCCC; }
-			
+				#formContainer { background: #FFFFFF; }
+
 			@media print {
 				body { background: #fff; font-family: Arial, Helvetica, sans-serif; font-size: 10pt; }
 				pre { white-space: pre-wrap; display: inline; }
