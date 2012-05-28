@@ -1742,7 +1742,7 @@ if($requri != "install")
 				#passForm { background: #ffffff; padding: 50px; padding-left: 40%; border: 1px solid #CCCCCC; }
 				#passForm > label { display: block; }
 				#adminPass { background-color: #FFFFFF; border-top: 1px solid #CCCCCC; border-bottom: 1px solid #CCCCCC; border-left: none; border-right: none; width: 100%;  }
-				#copyrightInfo { color: #999999; font-size: xx-small; position: fixed; bottom: 0px; right: 10px; padding-bottom: 10px; text-align: left; }
+				#copyrightInfo { color: #CCCCCC; background: #E0E0E0; background: rgba(0, 0, 0, 0.5); font-size: xx-small; position: fixed; bottom: 0px; right: 10px; padding-bottom: 10px; text-align: left; }
 				ul#postList { padding: 0; margin-left: 0; padding: 25px; list-style-type: square; margin-bottom: 50px; background: #FFFFFF; margin-right: 10px; }
 				#adminAction { width: 100%; }
 				#emphasizedURL	{ font-size: x-large; width: 100%; overflow: auto; font-style: italic; padding: 5px; }
@@ -2452,7 +2452,7 @@ if($requri && $requri != "install" && substr($requri, -1) != "!")
 ?>
 	<div class="spacer">&nbsp;</div>
 	<div class="spacer">&nbsp;</div>
-	<div id="copyrightInfo">Powered by <a href="https://github.com/schwarzenbart/Black-Open-Pastebin">Black Open Pastebin</a>, 2012.</div>
+	<div id="copyrightInfo"><div>Powered by <a href="https://github.com/schwarzenbart/Black-Open-Pastebin">Black Open Pastebin</a>, 2012.</div></div>
 	</div>
 </body>
 </html>
