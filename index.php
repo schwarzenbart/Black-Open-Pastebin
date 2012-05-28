@@ -1924,7 +1924,11 @@ if($requri != "install" && @$_POST['submit'])
 			}
 		
 		if(@$_POST['pasteEnter'] == @$_POST['originalPaste'] && strlen($_POST['pasteEnter']) > 10)
-			echo "<div class=\"error\">Please don't just repost what has already been said!</div>";
+			{
+				echo "<div class=\"error\">Please don't just repost what has already been said!</div>";
+				$_POST['pasteEnter'] = NULL;
+			}
+
 		
 		if(strlen(@$_POST['pasteEnter']) > 10 && $imageUpload && mb_strlen($paste['Content']) <= $CONFIG['pb_max_bytes'] && $db->insertPaste($paste['ID'], $paste))
 			{ 
