@@ -1927,7 +1927,7 @@ if($requri != "install" && @$_POST['submit'])
 		
 		if(strlen(@$_POST['pasteEnter']) > 10 && $imageUpload && mb_strlen($paste['Content']) <= $CONFIG['pb_max_bytes'] && $db->insertPaste($paste['ID'], $paste))
 			{ 
-				echo "<div class=\"result\"><div class=\"success\">Your paste has been successfully recorded!</div><div class=\"confirmURL\">URL to your paste is <a href=\"" . $bin->linker($paste['ID']) . $exclam . "\">" . $bin->linker($paste['ID']) . "</a></div>"; $requri = $paste['ID']; }
+				echo "<div class=\"result\"><div class=\"success\">Your paste has been successfully recorded!</div><div class=\"confirmURL\">URL to your paste is <a href=\"" . $bin->linker($paste['ID']) . $exclam . "\">" . $bin->linker($paste['ID']) . "</a></div>"; }
 		else {
 			echo "<div class=\"error\">Hmm, something went wrong.</div>";
 			if(strlen(@$_FILES['pasteImage']['name']) > 4 && $_SERVER['CONTENT_LENGTH'] > $CONFIG['pb_image_maxsize'] && $CONFIG['pb_images'])
@@ -1993,8 +1993,8 @@ if($requri != "install" && $CONFIG['pb_recent_posts'] && substr($requri, -1) != 
 								<input type=\"submit\" name=\"adminProceed\" value=\"Proceed\" />
 							</form>
 						</div></div>";
-					echo $bin->setExtraInfo($CONFIG['pb_extraInfo']);
 				}
+		echo $bin->setExtraInfo($CONFIG['pb_extrainfo']);	
 		echo "</div>";
 	} else
 		{
@@ -2015,9 +2015,9 @@ if($requri != "install" && $CONFIG['pb_recent_posts'] && substr($requri, -1) != 
 								<input type=\"submit\" name=\"adminProceed\" value=\"Proceed\" />
 							</form>
 						</div></div>";
-					echo $bin->setExtraInfo($CONFIG['pb_extrainfo']);
-					echo "</div>";
 				}
+			echo $bin->setExtraInfo($CONFIG['pb_extrainfo']);
+			echo "</div>";
 		}
 
 if($requri && $requri != "install" && substr($requri, -1) != "!")
