@@ -1768,7 +1768,7 @@ if($requri != "install")
 				#encryptContainer > label { width: 200px; display: block; }
 				#fileUploadContainer { width: 48%; float: left; margin-bottom: 10px; }
 				#imageContainer { text-align: center; padding: 10px; }
-				#styleBar { text-align: left; background: #FFFFFF; border: 1px solid #CCCCCC; padding: 10px; margin-top: 25px; }
+				#styleBar { text-align: left; background: #FFFFFF; border: 1px solid #CCCCCC; padding: 10px; }
 				#retrievedPaste { width: 100%; position: relative; padding: 0; margin: 0; margin-top: 10px; margin-bottom: 10px; border: 1px solid #CCCCCC; }
 				#formContainer { background: #FFFFFF; padding: 25px; border: 1px solid #CCCCCC; }
 
