@@ -1733,8 +1733,8 @@ if($requri != "install")
 				div#siteWrapper { width: 100%; margin: 0 auto; }
 				div#siteWrapper > #adminBox { max-width: 800px; margin: 25px; }
 				div#recentPosts { width: 15%; font-size: xx-small; float: left; position: relative; margin-left: 1%; }
-				div#pastebin { width: 82%; float: left; position: relative; padding-left: 1%; border-left: 1px dotted #999999; }
-				div#pastebin > h1 { border-bottom: 1px solid #999999; width: 33% }
+				div#pastebin { width: 82%; float: left; margin-top: 0px; position: relative; padding-left: 1%; border-left: 1px dotted #999999; }
+				div#pastebin > h1 { border-bottom: 1px solid #999999; width: 50% }
 				#pasteEnter { width: 100%; height: 250px; border: 1px solid #CCCCCC; background-color: #FFFFFF; }
 				#authorEnter { background-color: #FFFFFF; border-top: 1px solid #CCCCCC; border-bottom: 1px solid #CCCCCC; border-left: none; border-right: none; width: 68%;  }
 				#encryption { background-color: #FFFFFF; border-top: 1px solid #CCCCCC; border-bottom: 1px solid #CCCCCC; border-left: none; border-right: none; width: 33%;  }
@@ -1768,7 +1768,7 @@ if($requri != "install")
 				#encryptContainer > label { width: 200px; display: block; }
 				#fileUploadContainer { width: 48%; float: left; margin-bottom: 10px; }
 				#imageContainer { text-align: center; padding: 10px; }
-				#styleBar { text-align: left; position: relative; float: left; width: 48%; }
+				#styleBar { text-align: left; position: relative; float: left; background: #FFFFFF; border: 1px solid #CCCCCC; padding: 10px; margin-top: 25px; }
 				#retrievedPaste { width: 100%; position: relative; padding: 0; margin: 0; margin-top: 10px; margin-bottom: 10px; border: 1px solid #CCCCCC; }
 				#formContainer { background: #FFFFFF; padding: 25px; border: 1px solid #CCCCCC; }
 
