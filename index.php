@@ -1728,12 +1728,13 @@ if($requri != "install")
 				.lineHighlight { background-color: #FFFFAA; font-weight: bolder; color: #000000; }
 				.pasteEnterLabel { width: 80%; display: block; }
 				.resizehandle {	background: #F0F0F0 scroll 45%; cursor: s-resize; text-align: center; color: #AAAAAA; height: 16px; width: 100%; } 
-				#newPaste { text-align: center; border-bottom: 1px dotted #CCCCCC; padding-bottom: 10px; }
+				#newPaste { text-align: center; border-bottom: 1px dotted #999999; padding-bottom: 10px; }
 				#lineNumbers { width: 100%; max-height: 500px; background-color: #FFFFFF; overflow: auto; padding: 0; margin: 0; }
 				div#siteWrapper { width: 100%; margin: 0 auto; }
 				div#siteWrapper > #adminBox { max-width: 800px; margin: 25px; }
 				div#recentPosts { width: 15%; font-size: xx-small; float: left; position: relative; margin-left: 1%; }
-				div#pastebin { width: 82%; float: left; position: relative; padding-left: 1%; border-left: 1px dotted #CCCCCC; }
+				div#pastebin { width: 82%; float: left; position: relative; padding-left: 1%; border-left: 1px dotted #999999; }
+				div#pastebin > h1 { border-bottom: 1px solid #999999; width: 33% }
 				#pasteEnter { width: 100%; height: 250px; border: 1px solid #CCCCCC; background-color: #FFFFFF; }
 				#authorEnter { background-color: #FFFFFF; border-top: 1px solid #CCCCCC; border-bottom: 1px solid #CCCCCC; border-left: none; border-right: none; width: 68%;  }
 				#encryption { background-color: #FFFFFF; border-top: 1px solid #CCCCCC; border-bottom: 1px solid #CCCCCC; border-left: none; border-right: none; width: 33%;  }
@@ -1745,7 +1746,9 @@ if($requri != "install")
 				ul#postList { padding: 0; margin-left: 0; padding: 25px; list-style-type: square; margin-bottom: 50px; background: #FFFFFF; margin-right: 10px; }
 				#adminAction { width: 100%; }
 				#emphasizedURL	{ font-size: x-large; width: 100%; overflow: auto; font-style: italic; padding: 5px; }
-				#adminBox { padding-right: 10px; }
+				#adminBox { margin-right: 10px; }
+				#adminFunctions { background: #FFFFFF; padding: 25px; border: 1px solid #CCCCCC; }
+				#aboutPaste { background: #FFFFFF; padding: 25px; border: 1px solid #CCCCCC; }
 				#tagline { margin-bottom: 10px; }
 				#serviceList li { margin-top: 7px; margin-bottom: 7px; list-style: square; }
 				#authorContainer { width: 48%; float: left; margin-bottom: 10px;  }
@@ -1767,7 +1770,7 @@ if($requri != "install")
 				#imageContainer { text-align: center; padding: 10px; }
 				#styleBar { text-align: left; position: relative; float: left; width: 48%; }
 				#retrievedPaste { width: 100%; position: relative; padding: 0; margin: 0; margin-top: 10px; margin-bottom: 10px; border: 1px solid #CCCCCC; }
-				#formContainer { background: #FFFFFF; padding: 25px; }
+				#formContainer { background: #FFFFFF; padding: 25px; border: 1px solid #CCCCCC; }
 
 			@media print {
 				body { background: #fff; font-family: Arial, Helvetica, sans-serif; font-size: 10pt; }
