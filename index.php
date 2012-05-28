@@ -1734,7 +1734,7 @@ if($requri != "install")
 				div#siteWrapper > #adminBox { max-width: 800px; margin: 25px; }
 				div#recentPosts { width: 15%; font-size: xx-small; float: left; position: relative; margin-left: 1%; }
 				div#pastebin { width: 82%; float: left; margin-top: 0px; position: relative; padding-left: 1%; border-left: 1px dotted #999999; }
-				div#pastebin > h1 { border-bottom: 1px solid #999999; width: 50%; margin-bottom: 10px; margin-top: 10px; }
+				div#pastebin > h1 { border-bottom: 1px solid #999999; width: 50%; margin-bottom: 10px; margin-top: 11px; }
 				#pasteEnter { width: 100%; height: 250px; border: 1px solid #CCCCCC; background-color: #FFFFFF; }
 				#authorEnter { background-color: #FFFFFF; border-top: 1px solid #CCCCCC; border-bottom: 1px solid #CCCCCC; border-left: none; border-right: none; width: 68%;  }
 				#encryption { background-color: #FFFFFF; border-top: 1px solid #CCCCCC; border-bottom: 1px solid #CCCCCC; border-left: none; border-right: none; width: 33%;  }
