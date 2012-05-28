@@ -1742,7 +1742,7 @@ if($requri != "install")
 				#passForm > label { display: block; }
 				#adminPass { background-color: #FFFFFF; border-top: 1px solid #CCCCCC; border-bottom: 1px solid #CCCCCC; border-left: none; border-right: none; width: 100%;  }
 				#copyrightInfo { color: #999999; font-size: xx-small; position: fixed; bottom: 0px; right: 10px; padding-bottom: 10px; text-align: left; }
-				ul#postList { padding: 0; margin-left: 0; list-style-type: none; margin-bottom: 50px; }
+				ul#postList { padding: 0; margin-left: 0; padding: 25px; list-style-type: square; margin-bottom: 50px; background: #FFFFFF; }
 				#adminAction { width: 100%; }
 				#emphasizedURL	{ font-size: x-large; width: 100%; overflow: auto; font-style: italic; padding: 5px; }
 				#adminBox { padding-right: 10px; }
@@ -1767,7 +1767,7 @@ if($requri != "install")
 				#imageContainer { text-align: center; padding: 10px; }
 				#styleBar { text-align: left; position: relative; float: left; width: 48%; }
 				#retrievedPaste { width: 100%; position: relative; padding: 0; margin: 0; margin-top: 10px; margin-bottom: 10px; border: 1px solid #CCCCCC; }
-				#formContainer { background: #FFFFFF; padding: 10px; }
+				#formContainer { background: #FFFFFF; padding: 25px; }
 
 			@media print {
 				body { background: #fff; font-family: Arial, Helvetica, sans-serif; font-size: 10pt; }
