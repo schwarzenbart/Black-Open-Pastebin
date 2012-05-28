@@ -1761,7 +1761,7 @@ if($requri != "install")
 				#adminFunctions { background: #FFFFFF; padding: 25px; border: 1px solid #CCCCCC; }
 				#aboutPaste { background: #FFFFFF; padding: 25px; border: 1px solid #CCCCCC; }
 				#tagline { margin-bottom: 10px; }
-				#extraInfo { margin-top: 25px; font-size: 12px; }
+				#extraInfo { margin-top: 25px; font-size: 12px margin-right: 10px;; }
 				#serviceList li { margin-top: 7px; margin-bottom: 7px; list-style: square; }
 				#authorContainer { width: 48%; float: left; margin-bottom: 10px;  }
 				#authorContainerReply { padding-right: 52%; margin-bottom: 10px;  }
