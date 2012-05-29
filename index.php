@@ -1732,7 +1732,7 @@ if($requri != "install")
 				.alternate { background-color: #F3F3F3; }
 				.plainText { font-family: Arial, Helvetica, sans-serif; border: none; list-style-type: none; margin-bottom: 25px; }
 				.monoText { font-family:"Courier New",Courier,mono; list-style-type: decimal; }
-				.pastedImage { max-width: 500px; height : auto; }
+				.pastedImage { max-width: 75%; height : auto; }
 				.pastedImage { width: auto; max-height : 500px; }
 				.infoMessage { padding: 25px; font-size: medium; max-width: 800px; }
 				.lineHighlight { background-color: #FFFFAA; font-weight: bolder; color: #000000; }
