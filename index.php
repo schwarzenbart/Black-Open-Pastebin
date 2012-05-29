@@ -1687,7 +1687,7 @@ if($requri != "install" && $requri != NULL && substr($requri, -1) != "!" && !$_P
 					}
 
                                 header("Content-Type: text/plain; charset=utf-8");
-				header("Content-Disposition: attachment; filename='" . $requri . ".txt'");
+				header("Content-Disposition: attachment; filename=" . $requri . ".txt");
                                 die($db->rawHTML($bin->noHighlight($pasted['Data'])));
                         }
                 else
@@ -2177,7 +2177,7 @@ if($requri && $requri != "install" && substr($requri, -1) != "!")
 						if($pasted['Protection'])
 							$enabled = "disabled";
 						
-						$privacyContainer = "<div id=\"privacyContainer\"><label for=\"privacy\">Paste Visibility</label> <select name=\"privacy\" id=\"privacy\" " . $enabled . "><option value=\"1\">Private</option> <option value=\"0\">Public</option></select></div>";
+						$privacyContainer = "<div id=\"privacyContainer\"><label for=\"privacy\">Paste Visibility</label> <select name=\"privacy\" id=\"privacy\" " . $enabled . "><option value=\"0\">Public</option> <option value=\"1\">Private</option></select></div>";
 
 						$selecter = '/value="' . $pasted['Protection'] . '"/';
 						$replacer = 'value="' . $pasted['Protection'] . '" selected="selected"';
@@ -2448,7 +2448,7 @@ if($requri && $requri != "install" && substr($requri, -1) != "!")
 									echo "<input type=\"hidden\" name=\"lifespan\" value=\"0\" />";
 
 						if($CONFIG['pb_private'])
-							echo "<div id=\"privacyContainer\"><label for=\"privacy\">Paste Visibility</label> <select name=\"privacy\" id=\"privacy\"><option value=\"1\">Private</option> <option value=\"0\">Public</option></select></div>";
+							echo "<div id=\"privacyContainer\"><label for=\"privacy\">Paste Visibility</label> <select name=\"privacy\" id=\"privacy\"><option value=\"0\">Public</option> <option value=\"1\">Private</option></select></div>";
 
 						if($CONFIG['pb_encrypt_pastes'])
 							echo "<div id=\"encryptContainer\"><label for=\"encryption\">Password Protect</label> <input type=\"password\" name=\"encryption\" id=\"encryption\" /></div>";
