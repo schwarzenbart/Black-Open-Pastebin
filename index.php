@@ -1992,7 +1992,6 @@ if($requri != "install" && $CONFIG['pb_recent_posts'] && substr($requri, -1) != 
 								<input id=\"adminPass\" type=\"password\" name=\"adminPass\" value=\"" . @$_POST['adminPass'] . "\" />
 								<br /><br />
 								<select id=\"adminAction\" name=\"adminAction\">
-									<option value=\"ip\">Show Author's IP</option>
 									<option value=\"delete\">Delete Paste</option>
 								</select>
 								<input type=\"submit\" name=\"adminProceed\" value=\"Proceed\" />
@@ -2015,7 +2014,6 @@ if($requri != "install" && $CONFIG['pb_recent_posts'] && substr($requri, -1) != 
 								<input id=\"adminPass\" type=\"password\" name=\"adminPass\" value=\"" . @$_POST['adminPass'] . "\" />
 								<br /><br />
 								<select id=\"adminAction\" name=\"adminAction\">
-									<option value=\"ip\">Show Author's IP</option>
 									<option value=\"delete\">Delete Paste</option>
 								</select>
 								<input type=\"submit\" name=\"adminProceed\" value=\"Proceed\" />
@@ -2091,9 +2089,6 @@ if($requri && $requri != "install" && substr($requri, -1) != "!")
 				echo "<div id=\"aboutPaste\"><div id=\"pasteID\"><strong>PasteID</strong>: " . $requri . "</div><strong>Pasted by</strong> " . stripslashes($pasted['Author']) . ", <em title=\"" . $bin->event($pasted['Datetime']) . " ago\">" . gmdate($CONFIG['pb_datetime'], $pasted['Datetime']) . " GMT</em><br />
 					<strong>Expires</strong> " . $lifeString . "<br />
 					<strong>Paste size</strong> " . $pasteSize . "</div>";
-
-				if(@$_POST['adminAction'] == "ip" && $bin->hasher(hash($CONFIG['pb_algo'], @$_POST['adminPass']), $CONFIG['pb_salts']) === $CONFIG['pb_pass'])
-					echo "<div class=\"success\"><strong>Author IP Address</strong> <a href=\"http://whois.domaintools.com/" . base64_decode($pasted['IP']) . "\">" . base64_decode($pasted['IP']) . "</a></div>";
 
 				if(!is_bool($pasted['Image']) && !is_numeric($pasted['Image']))
 					echo "<div id=\"imageContainer\"><a href=\"" . $bin->linker() . $db->setDataPath($pasted['Image']) . "\" rel=\"external\"><img src=\"" . $bin->linker() . $db->setDataPath($pasted['Image']) . "\" alt=\"" . $pasted['ImageTxt'] . "\" class=\"pastedImage\" /></a></div>";
@@ -2245,7 +2240,6 @@ if($requri && $requri != "install" && substr($requri, -1) != "!")
 								<input id=\"adminPass\" type=\"password\" name=\"adminPass\" value=\"" . @$_POST['adminPass'] . "\" />
 								<br /><br />
 								<select id=\"adminAction\" name=\"adminAction\">
-									<option value=\"ip\">Show Author's IP</option>
 									<option value=\"delete\">Delete Paste</option>
 								</select>
 								<input type=\"submit\" name=\"adminProceed\" value=\"Proceed\" />
