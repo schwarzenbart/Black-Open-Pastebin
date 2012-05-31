@@ -1724,7 +1724,7 @@ if($requri != "install")
 				h2 { font-size: 15px; }
 				a { color: #CC6633; }
 				img { background: #ffffff; border: 1px solid #CCCCCC; padding: 10px; }
-				pre { display: inline; font-family: inherit; } 
+				pre { display: inline; font-family: inherit; white-space: pre-wrap; } 
 				.success { background-color: #AAFFAA; border: 1px solid #00CC00; font-weight: bolder; text-align: center; padding: 2px; color: #000000; margin-top: 3px; margin-bottom: 3px; }
 				.warn { background-color: #FFFFAA; border: 1px solid #CCCC00; font-weight: bolder; text-align: center; padding: 2px; color: #000000; margin-top: 3px; margin-bottom: 3px; }
 				.error { background-color: #FFAAAA; border: 1px solid #CC0000; font-weight: bolder; text-align: center; padding: 2px; color: #000000; margin-top: 3px; margin-bottom: 3px; }
